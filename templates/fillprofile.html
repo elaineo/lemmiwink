@@ -5,28 +5,25 @@
       <div class="page-subtitle">
         Information
       </div>
-      <form enctype="multipart/form-data" method="post" id="name_form">
+      <form enctype="multipart/form-data" method="post" id="addr_form">
         <input type="text" class='input-address' name="name" placeholder="Full name (must match ID)" data-mini="true">
         <hr class='input-hr'>
         <input type="tel" class='input-address' name="tel" placeholder="Phone" data-mini="true">
-      </form>
-      <div class="page-subtitle">
-        Delivery Address
-      </div>
-      <form enctype="multipart/form-data" method="post" id="addr_form" class="form-horizontal">
-        <hr class='input-hr'>
+        <div class="page-subtitle">
+          Delivery Address
+        </div>
         <input type="text" class='input-address' name="address" placeholder="Address">
         <hr class='input-hr'>
         <input type="text" class='input-address' name="apt" placeholder="Apt / suite / unit">
         <hr class='input-hr'>
-        <input type="text" class='input-address' name="city" placeholder="City">
+        <input type="text" class='input-address' id='city' name="city" placeholder="City">
         <hr class='input-hr'>
         <div class="ui-grid-a">
           <div class="ui-block-a">
-            <input type="text" class='input-address' data-role = "fieldcontain" name="state" placeholder="State">
+            <input type="text" class='input-address' id='state' name="state" placeholder="State" SIZE="2" MAXLENGTH="2">
           </div>
           <div class="ui-block-b">
-            <input type="text" class='input-address' data-role = "fieldcontain" name="zip"  placeholder="Zip">
+            <input type="text" class='input-address' name="zip"  placeholder="Zip" SIZE="5" MAXLENGTH="5" id='zip'>
           </div>
         </div>
         <button class='ui-mini ui-btn' id='addr_btn' disabled>DONE</button>
@@ -37,57 +34,58 @@
 function initialize() {
   $('#addr_btn').removeAttr('disabled');
 }
+$(document).ready(function() {
+  $("input#city").hide(); /* Show the fields */
+  $("input#state").hide();
+  $('input#zip').keypress(function(e) {
+      var a = [];
+      var k = e.which;
+      for (i = 48; i < 58; i++)
+          a.push(i);
+      if (!(a.indexOf(k)>=0))
+          e.preventDefault();
+  });
+  $('input#zip').keyup(function(e) {
+      // Do we have 5 digits?
+      var zip = $(this).val();
+      if (zip.length >=5)
+        fillCityState(zip);
+  });
+});
+function fillCityState(zip) {
+  $.ajax({
+    url: "http://zip.elevenbasetwo.com",
+    cache: false,
+    dataType: "json",
+    type: "GET",
+    data: "zip=" + zip,
+    success: function(result, success) {
+      console.log(result);
+      $("input#city").slideDown(); /* Show the fields */
+      $("input#state").slideDown(); /* Show the fields */
+
+      $("input#city").val(result.city); /* Fill the data */
+      $("input#state").val(result.state);
+    },
+    error: function(result, success) {
+      console.log('bad zip');
+    }
+  });
+}
 </script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places&callback=initialize"></script>
-<script type="text/javascript" charset="utf-8" src="js/validation.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/data/urls.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/cookie.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/js/validation.js"></script>
 <script type="text/javascript" charset="utf-8">
 
-document.addEventListener("deviceready", onDeviceReady, false);
-/* check for recent contacts */
-function onDeviceReady() {
-  console.log('Ready');
-  var cookie = getUserCookie();
-  data = {'userkey':cookie, 'type': 1};
-  console.log(cookie);
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: wwwHome + "/mobile/get_addr",
-        data: JSON.stringify(data),
-        success: function(response) {
-          console.log(response);
-          if (response.status == "ok") {
-            $('form#filladdr_form').hide();
-            $('#recent').show();
-            var adump = '';
-            for (a in response.addrs) {
-              adump = '<tr onclick=\'selectAddr("' + response.addrs[a].addrkey + '")\'><td>'+response.addrs[a].name + '<br>' + response.addrs[a].street + '</td></tr>';
-              $('#recTable tr:last').after(adump);
-            }
-          } else {
-            $('#recent').hide();
-            $('form#filladdr_form').show();
-          }
-        }
-    });
-}
-
-/* Select from recent contacts, save to local store */
-function selectAddr(address) {
-  window.localStorage.setItem("destination", address);
-}
 /* send address info to server */
 function validate_addr() {
-  var $form = $('#filladdr_form');
+  var $form = $('#addr_form');
   var name = $form.find('input[name=name]').val();
   var address = $form.find('input[name=address]').val();
   var city = $form.find('input[name=city]').val();
   var state = $form.find('input[name=state]').val();
   var zip = $form.find('input[name=zip]').val();
-  if (name!=='' && address!=='' && city!=='' && state!=='' && zip!=='')
+  if (name!=='' && address!=='' && zip!=='')
     return true;
   else
     return false;
@@ -101,8 +99,7 @@ $('#addr_btn').click( function(e) {
     return
   }
   // Try to get a geopt for this address
-  var data = $('#filladdr_form').serializeObject();
-  data.userkey = getUserCookie();
+  var data = $('#addr_form').serializeObject();
   geoFunc(data);
 });
 
@@ -111,13 +108,13 @@ function geoFuncCallback(data) {
     type: "POST",
     dataType: "json",
     contentType: "application/json; charset=utf-8",
-    url: wwwHome + "/mobile/create_addr",
+    url: "/address/create",
     data: JSON.stringify(data),
     success: function(response) {
       console.log(JSON.stringify(response));
       if (response.status == "ok") {
-          window.localStorage.setItem("destination", response.addrkey);
-          $.mobile.changePage('photo.html');
+          // Go to picture of id
+          $(location).attr('href', '/m/photoid');
       } else {
          alert('Error');
       }

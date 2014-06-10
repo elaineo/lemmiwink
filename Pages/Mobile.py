@@ -14,3 +14,5 @@ class MobilePage(BaseHandler):
         	self.render('fillprofile.html', **self.params)
         elif action=='profile':
         	self.render('profile.html', **self.params)
+    	elif action=='photoid':
+    		self.render('photoid.html', **self.params)

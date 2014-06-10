@@ -1,9 +1,7 @@
 from google.appengine.ext import ndb
 from Models.Money.Transaction import *
 import logging
-import uuid
 import json
-import urllib2
 
 # Models #
 ##########
@@ -23,13 +21,15 @@ class UserAccounts(ndb.Model):
     email = ndb.StringProperty()
     pwhash = ndb.StringProperty() # hashed pw
     tel = ndb.StringProperty()
+    addr_deliv = ndb.KeyProperty() # default address for deliveries
+    addr_bill = ndb.KeyProperty() # default address for billing - might not need this
     cust_id = ndb.StringProperty() # customer payment ID
     cc = ndb.StringProperty()
     fullname = ndb.StringProperty()
-    location = ndb.StringProperty()
-    locpt = ndb.GeoPtProperty(default=ndb.GeoPt(37.4,-122))
+    cardimg = ndb.IntegerProperty() # Recommendation ID image
+    cardid = ndb.IntegerProperty() # Recommendation ID number
     last_active = ndb.DateTimeProperty(auto_now=True)
-    creation_date = ndb.DateTimeProperty(auto_now_add=True)
+    created = ndb.DateTimeProperty(auto_now_add=True)
 
     @classmethod
     def by_email(cls, email):
