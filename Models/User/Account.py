@@ -22,7 +22,15 @@ class UserSettings(ndb.Model):
 class UserAccounts(ndb.Model):
     email = ndb.StringProperty()
     pwhash = ndb.StringProperty() # hashed pw
-    access_token = ndb.StringProperty() #for FB accounts
+    tel = ndb.StringProperty()
+    cust_id = ndb.StringProperty() # customer payment ID
+    cc = ndb.StringProperty()
+    first_name = ndb.StringProperty()
+    last_name = ndb.StringProperty()
+    location = ndb.StringProperty()
+    locpt = ndb.GeoPtProperty(default=ndb.GeoPt(37.4,-122))
+    last_active = ndb.DateTimeProperty(auto_now=True)
+    creation_date = ndb.DateTimeProperty(auto_now_add=True)
 
     @classmethod
     def by_email(cls, email):
@@ -30,9 +38,12 @@ class UserAccounts(ndb.Model):
         return u
 
     @classmethod
-    def by_user(cls, key):
-        u = cls.query(ancestor=key).get()
-        return u
+    def by_userid(cls, userid):
+        return cls.get_by_id(int(userid))
+
+    def user_id(self):
+        return self.key.id()
+
 
 class UserPrefs(ndb.Model):
     """ Individual User data fields """

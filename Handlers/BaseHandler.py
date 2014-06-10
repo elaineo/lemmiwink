@@ -51,8 +51,8 @@ class BaseHandler(webapp2.RequestHandler):
         cookie_val = self.request.cookies.get(name)
         return cookie_val and check_secure_val(cookie_val)
 
-    def login(self, email):
-        self.set_secure_cookie('user_id', str(email))
+    def login(self, userid):
+        self.set_secure_cookie('user_id', str(userid))
 
     def logout(self):
         """ logout by deleting cookie """

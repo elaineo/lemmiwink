@@ -6,4 +6,7 @@ import json
 class HomePage(BaseHandler):
     """ Home page, first page shown """
     def get(self):
-        self.render('home.html', **self.params)
+    	if self.user_prefs:
+	        self.render('home.html', **self.params)
+    	else:
+    		self.render('signin.html', **self.params)

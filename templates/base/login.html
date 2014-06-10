@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8">
+  <title>Lemmiwink</title>
+  <!-- Run in full-screen mode. -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Make the status bar black with white text. -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- Customize home screen title. -->
+  <meta name="apple-mobile-web-app-title" content="Lemmiwink">
+  <!-- Disable phone number detection. -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="initial-scale=1">
+
+  <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/splash.css">
+  <script type="text/javascript" src="/static/js/klass.min.js"></script>
+  <script type="text/javascript" src="/static/js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="/static/js/jstorage.js"></script>
+  <script type="text/javascript" src="/static/js/retina-1.1.0.js"></script>
+</head><body class='splash'>
+
+
+{% block content %}{% endblock %}
+
+<script type="text/javascript" charset="utf-8" src="/static/js/validation.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/js/data/urls.js"></script>
+<script>
+jQuery(document).ready(function () {
+  hh = $(window).height();
+  $('#login').height(hh);
+});
+</script>
+<script type="text/javascript" charset="utf-8">
+function validate_fields() {
+  var $form = $('#login_form');
+  var email = $form.find('input[name=email]').val();
+  var password = $form.find('input[name=password]').val();
+  if (email!=='' && password!=='')
+    return true;
+  else
+    return false;
+}
+
+  $('#signup_btn').on('click', function(e) {
+  	  e.preventDefault();
+      var valid = validate_fields();
+      if (!valid) {
+        alert('Error');
+        return
+      }
+      var data = $('#login_form').serializeObject();
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: "/account/signup",
+        data: JSON.stringify(data),
+        success: function(response) {
+          if (response.status == "ok") {
+            $(location).attr('href',"/m/home");
+          } else {
+             alert(response.error);
+          }
+        },
+        failure: function(f) {
+             alert('Login Error');
+        }
+      });
+  });
+    </script>
+  </body>
+</html>
