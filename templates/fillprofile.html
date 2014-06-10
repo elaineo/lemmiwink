@@ -1,0 +1,129 @@
+{% extends "base/app.html" %}
+{% block content %}
+
+    <div id="homepage_content" data-role="content">
+      <div class="page-subtitle">
+        Information
+      </div>
+      <form enctype="multipart/form-data" method="post" id="name_form">
+        <input type="text" class='input-address' name="name" placeholder="Full name (must match ID)" data-mini="true">
+        <hr class='input-hr'>
+        <input type="tel" class='input-address' name="tel" placeholder="Phone" data-mini="true">
+      </form>
+      <div class="page-subtitle">
+        Delivery Address
+      </div>
+      <form enctype="multipart/form-data" method="post" id="addr_form" class="form-horizontal">
+        <hr class='input-hr'>
+        <input type="text" class='input-address' name="address" placeholder="Address">
+        <hr class='input-hr'>
+        <input type="text" class='input-address' name="apt" placeholder="Apt / suite / unit">
+        <hr class='input-hr'>
+        <input type="text" class='input-address' name="city" placeholder="City">
+        <hr class='input-hr'>
+        <div class="ui-grid-a">
+          <div class="ui-block-a">
+            <input type="text" class='input-address' data-role = "fieldcontain" name="state" placeholder="State">
+          </div>
+          <div class="ui-block-b">
+            <input type="text" class='input-address' data-role = "fieldcontain" name="zip"  placeholder="Zip">
+          </div>
+        </div>
+        <button class='ui-mini ui-btn' id='addr_btn' disabled>DONE</button>
+      </form>
+
+    </div><!-- /page -->
+<script type="text/javascript" charset="utf-8">
+function initialize() {
+  $('#addr_btn').removeAttr('disabled');
+}
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places&callback=initialize"></script>
+<script type="text/javascript" charset="utf-8" src="js/validation.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/data/urls.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/cookie.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+document.addEventListener("deviceready", onDeviceReady, false);
+/* check for recent contacts */
+function onDeviceReady() {
+  console.log('Ready');
+  var cookie = getUserCookie();
+  data = {'userkey':cookie, 'type': 1};
+  console.log(cookie);
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: wwwHome + "/mobile/get_addr",
+        data: JSON.stringify(data),
+        success: function(response) {
+          console.log(response);
+          if (response.status == "ok") {
+            $('form#filladdr_form').hide();
+            $('#recent').show();
+            var adump = '';
+            for (a in response.addrs) {
+              adump = '<tr onclick=\'selectAddr("' + response.addrs[a].addrkey + '")\'><td>'+response.addrs[a].name + '<br>' + response.addrs[a].street + '</td></tr>';
+              $('#recTable tr:last').after(adump);
+            }
+          } else {
+            $('#recent').hide();
+            $('form#filladdr_form').show();
+          }
+        }
+    });
+}
+
+/* Select from recent contacts, save to local store */
+function selectAddr(address) {
+  window.localStorage.setItem("destination", address);
+}
+/* send address info to server */
+function validate_addr() {
+  var $form = $('#filladdr_form');
+  var name = $form.find('input[name=name]').val();
+  var address = $form.find('input[name=address]').val();
+  var city = $form.find('input[name=city]').val();
+  var state = $form.find('input[name=state]').val();
+  var zip = $form.find('input[name=zip]').val();
+  if (name!=='' && address!=='' && city!=='' && state!=='' && zip!=='')
+    return true;
+  else
+    return false;
+}
+$('#addr_btn').click( function(e) {
+  e.preventDefault();
+
+  var valid = validate_addr();
+  if (!valid) {
+    alert('Incomplete Address');
+    return
+  }
+  // Try to get a geopt for this address
+  var data = $('#filladdr_form').serializeObject();
+  data.userkey = getUserCookie();
+  geoFunc(data);
+});
+
+function geoFuncCallback(data) {
+  $.ajax({
+    type: "POST",
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    url: wwwHome + "/mobile/create_addr",
+    data: JSON.stringify(data),
+    success: function(response) {
+      console.log(JSON.stringify(response));
+      if (response.status == "ok") {
+          window.localStorage.setItem("destination", response.addrkey);
+          $.mobile.changePage('photo.html');
+      } else {
+         alert('Error');
+      }
+    }
+  });
+}
+</script>
+{% endblock %}
+

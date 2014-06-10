@@ -59,6 +59,8 @@ function validate_fields() {
         success: function(response) {
           if (response.status == "ok") {
             $(location).attr('href',"/m/home");
+          } else if (response.status =="new") {
+            $(location).attr('href',"/m/fillprofile");
           } else {
              alert(response.error);
           }

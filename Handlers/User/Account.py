@@ -56,7 +56,7 @@ class AccountHandler(BaseHandler):
             u = UserAccounts(email = email, pwhash = make_pw_hash(email, password))
             u.put()
             # return mobile login cookies
-            mm['status'] = 'ok'
+            mm['status'] = 'new'
             mm['userid'] = str(make_secure_val(u.user_id()))
             # return a cookie for local storage
             self.write(json.dumps(mm))

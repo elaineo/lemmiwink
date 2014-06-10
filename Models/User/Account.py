@@ -25,8 +25,7 @@ class UserAccounts(ndb.Model):
     tel = ndb.StringProperty()
     cust_id = ndb.StringProperty() # customer payment ID
     cc = ndb.StringProperty()
-    first_name = ndb.StringProperty()
-    last_name = ndb.StringProperty()
+    fullname = ndb.StringProperty()
     location = ndb.StringProperty()
     locpt = ndb.GeoPtProperty(default=ndb.GeoPt(37.4,-122))
     last_active = ndb.DateTimeProperty(auto_now=True)
