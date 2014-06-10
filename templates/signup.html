@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8">
+	<title>Barnacle</title>
+	<!-- Run in full-screen mode. -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<!-- Make the status bar black with white text. -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!-- Customize home screen title. -->
+	<meta name="apple-mobile-web-app-title" content="Barnacle">
+	<!-- Disable phone number detection. -->
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="initial-scale=1">
+
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/owl.carousel.css">
+	<link rel="stylesheet" href="css/owl.theme.css">
+	<link rel="stylesheet" href="css/photoswipe.css">
+    <link rel="stylesheet" href="css/splash.css">
+	<script type="text/javascript" src="js/klass.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="js/jstorage.js"></script>
+	<script type="text/javascript" src="js/retina-1.1.0.js"></script>
+</head><body class='splash'>
+    
+  <div id='login'>
+      <p>
+      <img src='img/logo_lg.png' style='margin-top:30%; width:60%'>
+      </p>
+      <br>
+      <form enctype="multipart/form-data" method="post" id="login_form" class="form-horizontal">
+        <input type="email" class='input-round' name="email" placeholder="Email Address">
+        <input type="tel" class='input-round' name="tel" placeholder="Mobile Number">
+        <input type="password" class='input-round' name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+        <button id='signup_btn' class='button-round'>Sign Up</button>
+      </form>
+    <div id='login-footer'>
+    <span id='btn_fb'>Sign Up Using Facebook</span>
+    </div>      
+  </div><!-- /content -->
+<script type="text/javascript" charset="utf-8" src="js/validation.js"></script>  
+<script type="text/javascript" charset="utf-8" src="js/fb.js"></script>  
+<script type="text/javascript" charset="utf-8" src="js/data/urls.js"></script>  
+<script>
+jQuery(document).ready(function () {
+  hh = $(window).height();
+  $('#login').height(hh);
+});
+
+
+function validate_fields() {      
+  var $form = $('#login_form');
+  var email = $form.find('input[name=email]').val();
+  var tel = $form.find('input[name=tel]').val();
+  var password = $form.find('input[name=password]').val();
+  if (email!=='' && tel!=='' && password!=='')
+    return true;
+  else
+    return false;
+}
+</script>    
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+// Wait for device API libraries to load
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+  console.log('Ready');
+  $('#signup_btn').unbind('click').bind('click', function(e) {
+      console.log('clirk');
+      e.preventDefault();
+      var valid = validate_fields();
+      if (!valid) {
+        alert('Error');
+        return
+      } 
+      var data = $('#login_form').serializeObject();
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: wwwHome + "/signup/p2p",
+        data: JSON.stringify(data),
+        success: function(response) {
+          if (response.status == "ok") {
+            window.localStorage.setItem("account", response.account);
+            window.localStorage.setItem("user_id", response.userid);
+            window.localStorage.setItem("userkey", response.userkey);
+            $(location).attr('href',"home.html");
+          } else {
+             alert(response.error);
+          }
+        },
+        failure: function(f) {
+             alert('Login Error');
+        }
+      });      
+  });                
+}
+    </script>
+  </body>
+</html>            

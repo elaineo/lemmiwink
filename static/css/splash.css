@@ -1,0 +1,92 @@
+body {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Open Sans", sans-serif;
+	font-size: 14px;
+    background: #2699ae;
+}
+
+.splash {
+    background: url('../img/backroad.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: relative;
+    margin: 0;
+}
+#login{
+    position: absolute;
+    text-align:center;
+    left:0;    top:0; 
+    width: 100%;
+}
+#login-footer {
+    position: absolute;
+    text-align:center;
+    left:0; bottom:10px;
+    color: #fff;
+    width: 100%
+}
+#login-footer a {
+  color: #fff;
+}
+input {
+  background-color: transparent;
+   height: 20px;
+  padding: 10px !important;  
+  color: #fff;
+  margin: 10px;
+}
+ .input-round {
+	border: 1px solid #fff;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;  
+    text-align: center;
+    width: 70%;
+}
+button { border:0; color: #fff; background: #2699ae; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; padding: 10px !important;  }
+.button-round {
+    margin: 10px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;  
+    text-align: center;
+    width: 75%;
+}
+
+button:hover, button:focus { color: white; background-color: #5cabb8; }
+button.primary { background-color: #3B5998; color: #fff;  }
+
+/* CONTENT */
+#news_slider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;  
+  }
+ #news_slider .item {
+	text-align: center;
+    background: #2699ae;
+}
+.owl-carousel {
+	width: 100%;
+}
+#news_slider .owl-item .item img, .blog-post-slider .item img {
+	height: 100%;
+	width: 100%;
+    overflow: hidden;
+}
+
+#news_slider .owl-item .item {
+  height: 100%;
+  width:100%;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+}

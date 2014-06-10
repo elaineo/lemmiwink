@@ -1,0 +1,1 @@
+var wwwHome = 'http://www.gobarnacle.com';
