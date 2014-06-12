@@ -32,12 +32,8 @@ class ImageServeHandler(BaseHandler):
         if resource and action=='success':
             self.response.headers['Content-Type'] = "application/json"
             #url = images.get_serving_url(blobstore.BlobKey(blob_key))
-            url = '%s/imgserv/img/%s' % (www_home, resource)
-            self.write(json.dumps({'url' : url}))
-        elif resource and action=='img':
-            resource = str(urllib.unquote(resource))
-            blob_info = blobstore.BlobInfo.get(resource)
-            self.send_blob(blob_info)
+            url = '/imgdown/%s' % (resource)
+            self.write(url)
 
     def post(self, action=None):
         if action=='upload':
@@ -53,15 +49,21 @@ class ImageServeHandler(BaseHandler):
                 headers={'Content-Type': content_type},
                 deadline=30
             )
-            logging.info(response.content)
             blob_key = response.content
+
+class ImageDownloadHandler(blobstore_handlers.BlobstoreDownloadHandler):
+    def get(self, resource):
+        resource = str(urllib.unquote(resource))
+        blob_info = blobstore.BlobInfo.get(resource)
+        self.send_blob(blob_info)
 
 class ImageBlobHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self, action=None):
         if action=='upload':
+            img = self.request.get("file")
             upload_files = self.get_uploads('file')  # 'file' is file upload field in the form
             blob_info = upload_files[0]
-            self.redirect('%s/imgserv/success/%s' % (www_home, blob_info.key()))
+            self.redirect('/imgserv/success/%s' % (blob_info.key()))
 
 class BlobstoreUpload(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):

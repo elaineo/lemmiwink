@@ -17,6 +17,7 @@ app = webapp2.WSGIApplication([('/', HomePage),
 #	webapp2.Route('/img/<action>', ImgHandler),
    webapp2.Route('/imgblob/<action>', handler=ImageBlobHandler),
    webapp2.Route('/imgserv/<action>', handler=ImageServeHandler),
+   webapp2.Route('/imgdown/<resource>', handler=ImageDownloadHandler),
    webapp2.Route('/imgserv/<action>/<resource>', handler=ImageServeHandler),
 	webapp2.Route('/m/<action>', MobilePage)],
   debug=True)
