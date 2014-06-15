@@ -5,45 +5,64 @@
         Upload a photo of your Registration ID.
       </div>
       <form enctype="multipart/form-data" id='photoID'>
-        <span class="span6 fileUpload button small">
-        <span>Upload</span>
-        <input type="file" capture="camera" accept="image/*" id="images">
+        <div id="container">
+          <div id="filelist"></div>
+          <a id="pickfiles" href="#">Take a Picture</a>
+        </div>
+        <img style="width:50%;margin-right:25%;margin-left:25%" id="smallImage" src="" />
         <input type="button" class="button small info" value="Save" id='save_btn'>
+        <input type='hidden' id='upload_url'>
       </form>
-      <img style="width:60px;height:60px;" id="smallImage" src="" />
-      <img style="display:none;" id="largeImage" src="" />
-      <div id="img-prev"></div>
-
-       <form>
-                <div id="container">
-                        <div id="filelist"></div>
-                        <a id="pickfiles" href="#">[Upload files]</a>
-                </div>
-        </form>
-
     </div><!-- /content -->
 
 <script type="text/javascript" src="/static/js/plupload/gears_init.js"></script>
 <script type="text/javascript" src="/static/js/plupload/plupload.full.min.js"></script>
-<script type="text/javascript">
-function pUpload(upload) {
+<script>
+$(document).ready(function(){
+  var upload;
+
+  function resetUpload() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      url: '/imgserv/url',
+      success: function(response) {
+        console.log(response);
+        if (response.status == "ok") {
+          upload = response.upload_url;
+          uploader.settings.url = upload;
+          $('#pickfiles').show();
+          $('#save_btn').removeAttr('disabled');
+        }
+      }
+    });
+  }
+
+  $('#save_btn').attr('disabled', 'disabled');
+  $('#pickfiles').hide();
+
   var uploader = new plupload.Uploader({
-    runtimes: 'gears,html5,flash,html4',
+    runtimes: 'gears,flash,html4',
     browse_button: 'pickfiles',
     container: 'container',
     url: upload,
     use_query_string: false,
     multipart: true,
-    flash_swf_url: '/static/js/plupload/plupload.flash.swf'
+    flash_swf_url: '/static/js/plupload/plupload.flash.swf',
+    resize: {quality:10}
   });
+  resetUpload();
   uploader.bind('FilesAdded', function(up, files) {
     $.each(files, function(i, file) {
-      $('#filelist').append(
+      $('#filelist').html(
         '<div id="' + file.id + '">' +
-        'File: ' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>' +
+        'Loading: ' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>' +
         '</div>'
       );
     });
+    // reset upload link
+    resetUpload();
   });
   uploader.bind('UploadProgress', function(up, file) {
     $('#' + file.id + ' b').html(file.percent + '%');
@@ -61,50 +80,22 @@ function pUpload(upload) {
   });
 
   uploader.init();
-}
-  </script>
-<script type="text/javascript" src="/static/js/save_image.js"></script>
-<script>
-$(document).ready(function(){
+
   $('input#save_btn').click(function(event){
     event.preventDefault();
-    $('#save_btn').attr('disabled', 'disabled');
-    $('#save_btn').addClass('wait');
-    var formData = new FormData($('form#photoID')[0]);
-    // get a URL
+    // save image and go to next page
     $.ajax({
-      type: "GET",
-      dataType: "json",
-      contentType: "application/json; charset=utf-8",
-      url: '/imgserv/url',
-      success: function(response) {
-        console.log(response);
-        if (response.status == "ok") {
-          upload = response.upload_url;
-          pUpload(upload);
-          /*$.ajax({
-              type: "POST",
-              cache: false,
-              contentType: false,
-              processData: false,
-              url: upload,
-              data: formData,
-              success: function(response) {
-                console.log(response);
-                $('#save_btn').attr('disabled','disabled');
-                $('#save_btn').addClass('wait');
-                // refresh img
-                $("#vehicle_img").attr("src", response.img_url);
-                $('#img-prev').html('');
-              },
-              failure: function(response) {
-                  console.log(response);
-                  $('#save_btn').removeAttr('disabled');
-                  $('#save_btn').removeClass('wait');
-              }
-          });*/
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: '/m/regid',
+        success: function(response) {
+          console.log(response);
+          if (response.status == "ok") {
+
+
+          }
         }
-      }
     });
   });
 });
