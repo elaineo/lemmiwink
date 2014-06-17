@@ -33,7 +33,8 @@ class ImageServeHandler(BaseHandler):
             self.response.headers['Content-Type'] = "application/json"
             #url = images.get_serving_url(blobstore.BlobKey(blob_key))
             url = '/imgdown/%s' % (resource)
-            self.write(url)
+            response = {'status':'ok', 'url':url, 'key': resource}
+            self.write(json.dumps(response))
 
     def post(self, action=None):
         if action=='upload':

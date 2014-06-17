@@ -26,7 +26,7 @@ class UserAccounts(ndb.Model):
     cust_id = ndb.StringProperty() # customer payment ID
     cc = ndb.StringProperty()
     fullname = ndb.StringProperty()
-    cardimg = ndb.IntegerProperty() # Recommendation ID image
+    cardimg = ndb.BlobKeyProperty()  # Recommendation ID image
     cardid = ndb.IntegerProperty() # Recommendation ID number
     last_active = ndb.DateTimeProperty(auto_now=True)
     created = ndb.DateTimeProperty(auto_now_add=True)

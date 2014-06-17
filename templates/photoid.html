@@ -11,7 +11,7 @@
         </div>
         <img style="width:50%;margin-right:25%;margin-left:25%" id="smallImage" src="" />
         <input type="button" class="button small info" value="Save" id='save_btn'>
-        <input type='hidden' id='upload_url'>
+        <input type='hidden' id='imgkey'>
       </form>
     </div><!-- /content -->
 
@@ -20,6 +20,7 @@
 <script>
 $(document).ready(function(){
   var upload;
+  $('input#save_btn').button('disable');
 
   function resetUpload() {
     $.ajax({
@@ -32,15 +33,10 @@ $(document).ready(function(){
         if (response.status == "ok") {
           upload = response.upload_url;
           uploader.settings.url = upload;
-          $('#pickfiles').show();
-          $('#save_btn').removeAttr('disabled');
         }
       }
     });
   }
-
-  $('#save_btn').attr('disabled', 'disabled');
-  $('#pickfiles').hide();
 
   var uploader = new plupload.Uploader({
     runtimes: 'gears,flash,html4',
@@ -61,6 +57,7 @@ $(document).ready(function(){
         '</div>'
       );
     });
+    $('#save_btn').button('enable');
     // reset upload link
     resetUpload();
   });
@@ -68,8 +65,11 @@ $(document).ready(function(){
     $('#' + file.id + ' b').html(file.percent + '%');
   });
   uploader.bind('FileUploaded', function(up, file, response) {
-    console.log(response);
-    $("#smallImage").attr("src", response.response);
+    console.log(response.response);
+    var r = jQuery.parseJSON( response.response );
+    $("#smallImage").attr("src", r.url);
+    // save rosponse url
+    $('input#imgkey').val(r.key);
     //window.location = response.response;
   });
   uploader.bind('Error', function(up, err) {
@@ -84,16 +84,23 @@ $(document).ready(function(){
   $('input#save_btn').click(function(event){
     event.preventDefault();
     // save image and go to next page
+    uu = $('input#imgkey').val();
+    if (uu=='undefined') {
+      alert('No image.');
+      return;
+    }
+    data = {'uu': uu };
+    console.log(data);
     $.ajax({
         type: "POST",
         dataType: "json",
+        data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         url: '/m/regid',
         success: function(response) {
           console.log(response);
           if (response.status == "ok") {
-
-
+            window.location.href='/';
           }
         }
     });
