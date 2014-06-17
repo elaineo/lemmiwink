@@ -18,6 +18,7 @@ class UserSettings(ndb.Model):
 
 
 class UserAccounts(ndb.Model):
+    valid = ndb.BooleanProperty(default=False)
     email = ndb.StringProperty()
     pwhash = ndb.StringProperty() # hashed pw
     tel = ndb.StringProperty()

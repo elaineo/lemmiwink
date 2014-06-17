@@ -4,6 +4,7 @@ import sys
 # User Accounts
 from Handlers.User.Account import *
 from Handlers.User.Address import *
+from Handlers.User.Cart import *
 from Handlers.Image import *
 
 from Pages.HomePage import *
@@ -13,6 +14,7 @@ sys.path.append('/Pages')
 
 app = webapp2.WSGIApplication([('/', HomePage),
 	webapp2.Route('/account/<action>', AccountHandler),
+	webapp2.Route('/cart/<action>', CartHandler),
 	webapp2.Route('/address/<action>', AddressHandler),
 #	webapp2.Route('/img/<action>', ImgHandler),
    webapp2.Route('/imgblob/<action>', handler=ImageBlobHandler),
