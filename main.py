@@ -10,6 +10,9 @@ from Handlers.Image import *
 from Pages.HomePage import *
 from Pages.Mobile import *
 
+#Admin
+from Handlers.Admin.Admin import *
+
 sys.path.append('/Pages')
 
 app = webapp2.WSGIApplication([('/', HomePage),
@@ -21,6 +24,7 @@ app = webapp2.WSGIApplication([('/', HomePage),
    webapp2.Route('/imgserv/<action>', handler=ImageServeHandler),
    webapp2.Route('/imgdown/<resource>', handler=ImageDownloadHandler),
    webapp2.Route('/imgserv/<action>/<resource>', handler=ImageServeHandler),
+   webapp2.Route('/admin/<action>/<key>', AdminHandler),
 	webapp2.Route('/m/<action>', MobilePage)],
   debug=True)
 
