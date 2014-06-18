@@ -5,13 +5,16 @@ body {
 }
 
 .splash {
-    background: url('../img/backroad.jpg') no-repeat center center fixed;
+    background: url('../img/sfskyline.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     position: relative;
     margin: 0;
+}
+.transparentbox {
+	background-color: #000;
 }
 #login{
     position: absolute;
