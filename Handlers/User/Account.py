@@ -62,7 +62,8 @@ class AccountHandler(BaseHandler):
             # return mobile login cookies
             mm['status'] = 'new'
             logging.info(u.user_id())
-            mm['userid'] = str(make_secure_val(str(u.user_id())))
+            self.login(u.user_id())
+            self.set_current_user()
             # return a cookie for local storage
             self.write(json.dumps(mm))
             return
