@@ -2,6 +2,7 @@
 *.pyc
 # C extensions
 *.so
+*.bak
 
 # Packages
 *.egg

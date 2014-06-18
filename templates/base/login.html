@@ -13,18 +13,16 @@
   <!-- Disable phone number detection. -->
   <meta name="format-detection" content="telephone=no">
   <meta name="viewport" content="initial-scale=1">
-
   <link rel="stylesheet" href="/static/css/style.css" />
     <link rel="stylesheet" href="/static/css/splash.css">
-  <script type="text/javascript" src="/static/js/klass.min.js"></script>
   <script type="text/javascript" src="/static/js/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="/static/js/jstorage.js"></script>
   <script type="text/javascript" src="/static/js/retina-1.1.0.js"></script>
+
 </head><body class='splash'>
 
 
 {% block content %}{% endblock %}
-
+{% block url %}{% endblock %}
 <script type="text/javascript" charset="utf-8" src="/static/js/validation.js"></script>
 <script>
 jQuery(document).ready(function () {
@@ -55,7 +53,7 @@ function validate_fields() {
         type: "POST",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "/account/signup",
+        url: url,
         data: JSON.stringify(data),
         success: function(response) {
           if (response.status == "ok") {
@@ -67,10 +65,19 @@ function validate_fields() {
           }
         },
         failure: function(f) {
-             alert('Login Error');
+          alert('Login Error');
         }
       });
   });
+  var a=document.getElementsByTagName("a");
+  for(var i=0;i<a.length;i++)
+  {
+      a[i].onclick=function()
+      {
+          window.location=this.getAttribute("href");
+          return false
+      }
+  }
     </script>
   </body>
 </html>

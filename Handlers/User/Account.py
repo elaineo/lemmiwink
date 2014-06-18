@@ -14,6 +14,8 @@ class AccountHandler(BaseHandler):
             self.redirect("/profile")
         elif action=='signup':
             self.render('signup.html')
+        elif action=='signin':
+            self.render('signin.html')
         elif action=='signout':
             self.__signout()
 
@@ -27,9 +29,9 @@ class AccountHandler(BaseHandler):
         if action=='signup':
             self.__signup()
         elif action=='signin':
-            self.__signin()
+            self.__signup(False)
 
-    def __signup(self):
+    def __signup(self, newacct=True):
         self.response.headers['Content-Type'] = "application/json"
         data = json.loads(self.request.body)
         logging.info(data)
@@ -45,9 +47,11 @@ class AccountHandler(BaseHandler):
         if not valid_pw(password):
             mm['error'] = "That wasn't a valid password."
         elif u:
-            # sign them in
+            # already have account, sign them in
             self.__signin(u,password)
             return
+        if not newacct:
+            mm['error']="Not an existing user."
         if mm['error'] is not None:
             mm['status'] = 'error'
             self.write(json.dumps(mm))
@@ -57,7 +61,8 @@ class AccountHandler(BaseHandler):
             u.put()
             # return mobile login cookies
             mm['status'] = 'new'
-            mm['userid'] = str(make_secure_val(u.user_id()))
+            logging.info(u.user_id())
+            mm['userid'] = str(make_secure_val(str(u.user_id())))
             # return a cookie for local storage
             self.write(json.dumps(mm))
             return

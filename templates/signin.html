@@ -9,16 +9,12 @@
         <input type="email" class='input-round' name="email" placeholder="Email Address">
         <input type="password" class='input-round' name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
         <button id='signup_btn' class='button-round'>Log In</button>
+        <div class='subtitle'><a href='/account/signup'>Register New Account</a></div>
       </form>
     <div id='login-footer'>
-    <a href='/account/pw'>Forgot Password?</a> &nbsp; | &nbsp; <a href='/account/signup'>Register</a>
+    <a href='/account/pw'>Forgot Password</a>
 
   </div><!-- /content -->
   </div>
-<script>
-jQuery(document).ready(function () {
-  hh = $(window).height();
-  $('#login').height(hh);
-});
-</script>
 {% endblock %}
+{% block url %}<script>var url = "/account/signin";</script> {% endblock %}

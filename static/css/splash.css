@@ -13,8 +13,15 @@ body {
     position: relative;
     margin: 0;
 }
+.subtitle {
+  padding: 10px;
+  color: #eee;
+}
+.subtitle a {
+  color: #fff;
+}
 #login{
-    background:rgba(0,0,0,0.7);
+    background:rgba(0,0,0,0.6);
     position: absolute;
     text-align:center;
     left:0;    top:0;

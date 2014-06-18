@@ -9,9 +9,11 @@
         <input type="email" class='input-round' name="email" placeholder="Email Address">
         <input type="password" class='input-round' name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
         <button id='signup_btn' class='button-round'>Next</button>
+        <div class='subtitle'><a href='/account/signin'>Log in with Existing Account</a></div>
       </form>
     <div id='login-footer'>
     <span>You must be at least 18 years old to use this application.</span>
     </div>
   </div><!-- /content -->
 {% endblock %}
+{% block url %}<script>var url = "/account/signup";</script> {% endblock %}
