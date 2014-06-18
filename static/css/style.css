@@ -36,6 +36,39 @@ body a:visited  {
 	text-decoration: none;
 	outline: 0;
 }
+
+.menuitem {
+	height: 40px;
+	text-align: center;
+	clear: both;
+	margin-top: 5px;
+}
+.menuitem .itempic {
+	float: left;
+	width: 50px;
+	margin-left: 10px;
+}
+.menuitem .itemdesc {
+	float: right;
+	width: 80%;
+	min-height: 50px;
+	border-bottom: 2px solid #AAA;
+	text-align: left;
+}
+.menuitem .itemdesc .name {
+	margin-top: 15px;
+	font-size: 18px;
+	font-weight: bold;
+}
+.menuitem .itemdesc .desc {
+	font-size: 16px;
+	font-style: italic;
+	color: #555;
+}
+.itempic img {
+	width: 50px;
+	height: 50px;
+}
 .accent-color {
 	background: #f3f3f3!important;
 }

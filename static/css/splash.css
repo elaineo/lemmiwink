@@ -5,7 +5,7 @@ body {
 }
 
 .splash {
-    background: url('../img/sfskyline.jpg') no-repeat center center fixed;
+    background: url('/static/img/sfskyline.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -13,13 +13,11 @@ body {
     position: relative;
     margin: 0;
 }
-.transparentbox {
-	background-color: #000;
-}
 #login{
+    background:rgba(0,0,0,0.7);
     position: absolute;
     text-align:center;
-    left:0;    top:0; 
+    left:0;    top:0;
     width: 100%;
 }
 #login-footer {
@@ -35,7 +33,7 @@ body {
 input {
   background-color: transparent;
    height: 20px;
-  padding: 10px !important;  
+  padding: 10px !important;
   color: #fff;
   margin: 10px;
 }
@@ -43,7 +41,7 @@ input {
 	border: 1px solid #fff;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
-	border-radius: 30px;  
+	border-radius: 30px;
     text-align: center;
     width: 70%;
 }
@@ -52,7 +50,7 @@ button { border:0; color: #fff; background: #2699ae; -webkit-box-shadow: none; -
     margin: 10px;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
-	border-radius: 30px;  
+	border-radius: 30px;
     text-align: center;
     width: 75%;
 }
@@ -66,7 +64,7 @@ button.primary { background-color: #3B5998; color: #fff;  }
   top: 0;
   left: 0;
   height: 100%;
-  width: 100%;  
+  width: 100%;
   }
  #news_slider .item {
 	text-align: center;
@@ -91,5 +89,5 @@ button.primary { background-color: #3B5998; color: #fff;  }
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  
+
 }

@@ -1,6 +1,6 @@
 {% extends "base/login.html" %}
 {% block content %}
-  <div id='login'>
+  	<div id='login'>
       <p>
       <img src='/static/img/lemmiwink_lg.png' style='margin-top:20%; width:60%'>
       </p>
@@ -12,6 +12,13 @@
       </form>
     <div id='login-footer'>
     <a href='/account/pw'>Forgot Password?</a> &nbsp; | &nbsp; <a href='/account/signup'>Register</a>
-    </div>
+
   </div><!-- /content -->
+  </div>
+<script>
+jQuery(document).ready(function () {
+  hh = $(window).height();
+  $('#login').height(hh);
+});
+</script>
 {% endblock %}
