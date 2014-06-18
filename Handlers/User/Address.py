@@ -33,7 +33,7 @@ class AddressHandler(BaseHandler):
         lon = data.get('lon')
         mm={'error':None}
         if not name or not tel or not zipcode:
-            mm['error']="Invalid information."
+            mm['error']="Please complete all fields."
 
         u = self.user_prefs
         u.fullname = name

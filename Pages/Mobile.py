@@ -18,6 +18,8 @@ class MobilePage(BaseHandler):
             self.render('photoid.html', **self.params)
         elif action=='catalog':
             self.render('catalog.html', **self.params)
+        elif action=='template':
+            self.render('template.html', **self.params)
 
     def post(self, action=None):
         if not self.user_prefs:
