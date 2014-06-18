@@ -1,6 +1,4 @@
 from Handlers.BaseHandler import *
-from Utils.PageUtils import *
-import urlparse
 import json
 
 class HomePage(BaseHandler):

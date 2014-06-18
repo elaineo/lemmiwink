@@ -3,11 +3,8 @@ import jinja2
 import os
 import logging
 import urlparse
-from google.appengine.api import users
 from Utils.UserUtils import *
 from Models.User.Account import *
-from Utils.PageUtils import *
-from Utils.data.Defs import signin_reg, blank_img, signin_pattern
 
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader('templates'), autoescape = True)
 
