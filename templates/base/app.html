@@ -3,6 +3,7 @@
 <head><meta charset="UTF-8">
 	<title>Lemmiwink</title>
 	<!-- Run in full-screen mode. -->
+    <meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<!-- Make the status bar black with white text. -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -17,11 +18,71 @@
     <link rel="stylesheet" href="/static/css/font-awesome.min.css">
 	<script type="text/javascript" src="/static/js/klass.min.js"></script>
 	<script type="text/javascript" src="/static/js/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="/static/js/bookmark-bubble.js"></script>
 	<script type="text/javascript" src="/static/js/jquery.mobile-1.4.2.min.js"></script>
 	<script type="text/javascript" src="/static/js/jstorage.js"></script>
 	<script type="text/javascript" src="/static/js/retina-1.1.0.js"></script>
 	<script type="text/javascript" src="/static/js/jquery.validate.min.js"></script>
+
+    <link href="/static/apple-touch-icon-144x144.png" sizes="144x144" rel="icon">
+    <link href="/static/apple-touch-icon-114x114.png" sizes="114x114" rel="icon">
+    <link href="/static/apple-touch-icon-144x144.png" sizes="144x144" rel="apple-touch-icon">
+    <link href="/static/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon">
+    <link href="/static/apple-touch-icon-76x76.png" sizes="76x76" rel="apple-touch-icon">
+    <link href="/static/apple-touch-icon-72x72.png" sizes="72x72" rel="apple-touch-icon">
+    <link href="/static/apple-touch-icon-57x57.png" sizes="57x57" rel="apple-touch-icon">
+
+    <!-- Startup images -->
+
+    <!-- iOS 6 & 7 iPad (retina, portrait) -->
+    <link href="/static/apple-touch-startup-image-1536x2008.png"
+          media="(device-width: 768px) and (device-height: 1024px)
+             and (orientation: portrait)
+             and (-webkit-device-pixel-ratio: 2)"
+          rel="apple-touch-startup-image">
+
+    <!-- iOS 6 & 7 iPad (retina, landscape) -->
+    <link href="/static/apple-touch-startup-image-1496x2048.png"
+          media="(device-width: 768px) and (device-height: 1024px)
+             and (orientation: landscape)
+             and (-webkit-device-pixel-ratio: 2)"
+          rel="apple-touch-startup-image">
+
+    <!-- iOS 6 iPad (portrait) -->
+    <link href="/static/apple-touch-startup-image-768x1004.png"
+          media="(device-width: 768px) and (device-height: 1024px)
+             and (orientation: portrait)
+             and (-webkit-device-pixel-ratio: 1)"
+          rel="apple-touch-startup-image">
+
+    <!-- iOS 6 iPad (landscape) -->
+    <link href="/static/apple-touch-startup-image-748x1024.png"
+          media="(device-width: 768px) and (device-height: 1024px)
+             and (orientation: landscape)
+             and (-webkit-device-pixel-ratio: 1)"
+          rel="apple-touch-startup-image">
+
+    <!-- iOS 6 & 7 iPhone 5 -->
+    <link href="/static/apple-touch-startup-image-640x1096.png"
+          media="(device-width: 320px) and (device-height: 568px)
+             and (-webkit-device-pixel-ratio: 2)"
+          rel="apple-touch-startup-image">
+
+    <!-- iOS 6 & 7 iPhone (retina) -->
+    <link href="/static/apple-touch-startup-image-640x920.png"
+          media="(device-width: 320px) and (device-height: 480px)
+             and (-webkit-device-pixel-ratio: 2)"
+          rel="apple-touch-startup-image">
+
+    <!-- iOS 6 iPhone -->
+    <link href="/static/apple-touch-startup-image-320x460.png"
+          media="(device-width: 320px) and (device-height: 480px)
+             and (-webkit-device-pixel-ratio: 1)"
+          rel="apple-touch-startup-image">
+  <link rel="stylesheet" type="text/css" href="/static/css/add2homescreen.css">
+  <script src="/static/js/add2homescreen.min.js"></script>
+  <script>
+  addToHomescreen();
+  </script>
 </head>
 <body>
  <div data-role="page" id="home">
