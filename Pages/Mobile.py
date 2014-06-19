@@ -6,13 +6,14 @@ class MobilePage(BaseHandler):
     """ Mobile menu pages """
     def get(self, action=None):
         logging.info(self.user_prefs)
-        if action=='home' and self.user_prefs:
+        if action=='home':
             self.render('home.html', **self.params)
         elif action=='payment':
             self.render('payment.html', **self.params)
         elif action=='fillprofile':
             self.render('fillprofile.html', **self.params)
         elif action=='profile':
+            self.params.update(self.user_prefs.to_dict(True))
             self.render('profile.html', **self.params)
         elif action=='photoid':
             self.render('photoid.html', **self.params)

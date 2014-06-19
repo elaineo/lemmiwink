@@ -16,8 +16,10 @@ class AddressHandler(BaseHandler):
             self.redirect("/signup")
         if action=='create':
             self.__create_new()
+        if action=='update':
+            self.__create_new(True)
 
-    def __create_new(self):
+    def __create_new(self,update=False):
         self.response.headers['Content-Type'] = "application/json"
         data = json.loads(self.request.body)
         logging.info(data)
@@ -39,13 +41,22 @@ class AddressHandler(BaseHandler):
         u.fullname = name
         u.tel = tel
 
-        new_addr = Address(street = address, apt = apt, city = city, state = state, zipcode = zipcode)
+        if update:
+            new_addr = u.addr_deliv.get()
+        else:
+            new_addr = Address()
+        new_addr.street = address
+        new_addr.apt = apt
+        new_addr.city = city
+        new_addr.state = state
+        new_addr.zipcode = zipcode
         if lat and lon:
             locpt = ndb.GeoPt(lat=lat, lon=lon)
             new_addr.locpt = locpt
         new_addr.put()
-        u.addr_deliv = new_addr.key
-        u.put()
+        if not update:
+            u.addr_deliv = new_addr.key
+            u.put()
 
         if mm['error'] is not None:
             mm['status'] = 'error'

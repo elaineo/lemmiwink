@@ -9,6 +9,6 @@ class HomePage(BaseHandler):
     		if self.user_prefs.valid:
 		        self.render('catalog.html', **self.params)
 	        else:
-	        	self.render('photoid.html', **self.params)
+	        	self.render('home.html', **self.params)
     	else:
     		self.render('signin.html', **self.params)

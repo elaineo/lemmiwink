@@ -44,6 +44,15 @@ class UserAccounts(ndb.Model):
     def user_id(self):
         return self.key.id()
 
+    def to_dict(self, addr=False):
+        p = { 'name' : self.fullname,
+                'email' : self.email,
+                'tel' : self.tel}
+        if addr:
+            a = self.addr_deliv.get()
+            p['addr'] = a.to_dict()
+        return p
+
 
 class UserPrefs(ndb.Model):
     """ Individual User data fields """

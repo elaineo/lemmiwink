@@ -23,3 +23,17 @@ class Address(ndb.Model):
     @classmethod
     def by_key(cls, key):
         return cls.query(ancestor=key)
+
+    def to_dict(self):
+        p = { 'street' : self.street,
+                'zip' : self.zipcode }
+        if self.apt:
+            p['apt']=self.apt
+        if self.city:
+            p['city']=self.city
+        if self.state:
+            p['state']=self.state
+        if self.locpt:
+            p['lat'] = self.locpt.lat
+            p['lon'] = self.locpt.lon
+        return p
