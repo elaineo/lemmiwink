@@ -978,3 +978,18 @@ pre {
   background: -ms-linear-gradient(left, #000000 0%, rgba(0, 0, 0, 0) 100%);
   background: linear-gradient(left, #000000 0%, rgba(0, 0, 0, 0) 100%);
 }
+
+.page_title {
+	color: #DDD;
+	font-weight: bold;
+}
+.stat {
+border: 1px solid #edebe4;
+background: transparent url("/static/img/stat-bg.png") no-repeat;
+float: left;
+height: 43px;
+margin-right: 3px;
+text-align: center;
+width: 43px;
+}
+}

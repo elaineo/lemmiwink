@@ -29,6 +29,7 @@ class UserAccounts(ndb.Model):
     fullname = ndb.StringProperty()
     cardimg = ndb.BlobKeyProperty()  # Recommendation ID image
     cardid = ndb.IntegerProperty() # Recommendation ID number
+    promocode = ndb.StringProperty()
     last_active = ndb.DateTimeProperty(auto_now=True)
     created = ndb.DateTimeProperty(auto_now_add=True)
 
@@ -48,10 +49,13 @@ class UserAccounts(ndb.Model):
         p = { 'name' : self.fullname,
                 'email' : self.email,
                 'tel' : self.tel}
-        if addr:
+        if addr and self.addr_deliv:
             a = self.addr_deliv.get()
             p['addr'] = a.to_dict()
         return p
+
+    def code(self):
+        return str(self.key.id())[-4:]
 
 
 class UserPrefs(ndb.Model):

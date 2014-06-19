@@ -6,7 +6,8 @@
       </div>
       <form enctype="multipart/form-data" id='photoID'>
         <div id="container">
-          <div id="filelist"></div>          <a id='pickfiles' data-role="button" data-transition="fade" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c"><span class="ui-btn-inner ui-corner-right ui-controlgroup-last"><span class="ui-btn-text">Take a Picture</span></span></a>
+          <div id="filelist"></div>
+          <a id='pickfiles' data-role="button" data-transition="fade" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-corner-right ui-controlgroup-last ui-btn-up-c">Take a Picture</a>
         </div>
         <img style="width:50%;margin-right:25%;margin-left:25%" id="smallImage" src="" />
         <input type="button" class="button small info" value="Save" id='save_btn'>
@@ -57,7 +58,6 @@ $(document).ready(function(){
         '</div>'
       );
     });
-    $('#save_btn').button('enable');
     // reset upload link
     resetUpload();
   });
@@ -67,6 +67,7 @@ $(document).ready(function(){
   uploader.bind('FileUploaded', function(up, file, response) {
     console.log(response.response);
     var r = jQuery.parseJSON( response.response );
+    $('#save_btn').button('enable');
     $("#smallImage").attr("src", r.url);
     // save rosponse url
     $('input#imgkey').val(r.key);

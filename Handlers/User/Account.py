@@ -11,7 +11,7 @@ class AccountHandler(BaseHandler):
     """ User sign up page """
     def get(self, action=None):
         if self.user_prefs: # if user is logged in, redirect to profile
-            self.redirect("/profile")
+            self.redirect("/m/home")
         elif action=='signup':
             self.render('signup.html')
         elif action=='signin':
