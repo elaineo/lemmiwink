@@ -117,7 +117,8 @@ function geoFuncCallback(data) {
       console.log(JSON.stringify(response));
       if (response.status == "ok") {
           // Go to picture of id
-          $.mobile.changePage('/m/photoid');
+          window.location='/m/photoid';
+          //$.mobile.changePage('/m/photoid');
       } else {
          alert('Error');
       }
