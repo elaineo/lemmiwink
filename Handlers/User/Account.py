@@ -30,6 +30,8 @@ class AccountHandler(BaseHandler):
             self.__signup()
         elif action=='signin':
             self.__signup(False)
+        elif action=='web':
+            self.__web()
 
     def __signup(self, newacct=True):
         self.response.headers['Content-Type'] = "application/json"
@@ -84,4 +86,16 @@ class AccountHandler(BaseHandler):
             mm['status'] = 'error'
             mm['error'] = "Invalid Login."
         self.response.headers['Content-Type'] = "application/json"
+        self.write(json.dumps(mm))
+
+    def __web(self):
+        self.response.headers['Content-Type'] = "application/json"
+        data = json.loads(self.request.body)
+        logging.info(data)
+        # retrieve information
+        location = data.get('location')
+        email = data.get('email')
+        u = WebAccount(email=email, location=location)
+        u.put()
+        mm = {'status': 'ok'}
         self.write(json.dumps(mm))

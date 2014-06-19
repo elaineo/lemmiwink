@@ -57,6 +57,10 @@ class UserAccounts(ndb.Model):
     def code(self):
         return str(self.key.id())[-4:]
 
+class WebAccount(ndb.Model):
+    email = ndb.StringProperty()
+    location = ndb.StringProperty()
+    created = ndb.DateTimeProperty(auto_now_add=True)
 
 class UserPrefs(ndb.Model):
     """ Individual User data fields """
