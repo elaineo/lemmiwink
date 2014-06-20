@@ -1,4 +1,5 @@
 from Handlers.BaseHandler import *
+from Models.Product.Listing import *
 import json
 import logging
 
@@ -23,6 +24,7 @@ class MobilePage(BaseHandler):
         elif action=='photoid':
             self.render('photoid.html', **self.params)
         elif action=='catalog':
+            self.params['catalog'] = Category.dump_cat()
             self.render('catalog.html', **self.params)
         elif action=='template':
             self.render('template.html', **self.params)

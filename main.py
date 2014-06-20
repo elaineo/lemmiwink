@@ -12,6 +12,8 @@ from Pages.Mobile import *
 
 # Catalog
 from Handlers.Product.Listing import CatalogHandler
+# Payment
+from Handlers.User.Payment import PaymentHandler
 
 #Admin
 from Utils.Admin import AdminHandler
@@ -27,6 +29,8 @@ app = webapp2.WSGIApplication([('/', HomePage),
   # product pages
   webapp2.Route('/cat', CatalogHandler),
   webapp2.Route('/cat/<key>', CatalogHandler),
+  # payment
+  webapp2.Route('/pay/<action>', PaymentHandler),
   # Image upload handlers
    webapp2.Route('/imgblob/<action>', handler=ImageBlobHandler),
    webapp2.Route('/imgserv/<action>', handler=ImageServeHandler),

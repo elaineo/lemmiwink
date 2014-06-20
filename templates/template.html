@@ -1,0 +1,68 @@
+{% extends "base/app.html" %}
+{% set title='Red Congo' %}
+{% set description='A blend of Congolese, Mexican, and Afghani Landrace. Big fluffy buds with a sweet and pungent nose. Excellent for medicating when one still needs to be task-oriented, highly functional, and busy busy busy.' %}
+{% block content %}
+	<div id="header" data-role="header" data-position="fixed" data-theme="c">
+		<div class="header_wrapper">
+			<a style="border-left: none;" class="header_button" href="#left_panel" data-inline="true" data-role="button" data-corners="false" data-theme="c">
+				<img class="header-btn-image" style="width: 100%; height: 100%;" src="/static/img/menu.png" alt="Menu">
+				<span class="menu-btn-background"></span>
+				<span class="counter-header hidden accent-color" style="color: #ffffff;"></span>
+			</a>
+			<span class="page_title">{{ title }}</span>
+			<a style="float: right; border: none;" class="header_button" href="#" data-inline="true" data-rel="back" data-role="button" data-corners="false" data-theme="c">
+				<img style="width: 100%; height: 100%;" src="/static/img/back.png" alt="Back">
+				<span class="btn-background"></span>
+			</a>
+			<a style="float: right;" class="header_button" href="#right_panel" data-inline="true" data-role="button" data-corners="false" data-theme="c">
+				<img style="width: 100%; height: 100%;" src="/static/img/share.png" alt="Share">
+				<span class="btn-background share-btn-background"></span>
+			</a>
+			<div style="clear: both"></div>
+		</div>
+	</div><!-- /header -->
+			<div style="text-align: center;">
+				<a href="/m/catalog" data-corners="false" data-role="button" data-mini="true" data-icon="arrow-l" data-iconpos="left" data-inline="true">Back to Menu</a>
+				<a href="/m/cart" data-corners="false" data-role="button" data-mini="true" data-icon="arrow-r" data-iconpos="right" data-inline="true">Get it Now</a>
+			</div>
+
+	<div data-role="content">
+		<div class="container">
+			<article class="blog-article">
+				<div class="blog-featured-image blog-image-center text-transparent">
+					<div style="display: inline-block; max-width: 100%; position: relative;">
+						<a href="blog-single-5.html">
+							<img src="/static/img/product-pics/flower-girlscout.jpg">
+						</a>
+						<div class="blog-single-title">
+							<section class="blog-single-title-text">
+								<a href="blog-single-5.html">
+									<p class="title">{{ title }}</p>
+								</a>
+								<p class="excerpt">
+								$55
+								</p>
+							</section>
+								
+						</div>
+				
+					</div>
+
+				</div>
+				<div class="blog-featured-image blog-image-center text-transparent" style='width: 200px;'>
+				  <div style="display: inline-block; max-width: 100%; position: relative;">
+					<div class='stat'>23</div>
+					<div class='stat'>MJ</div>
+				  </div>
+				</div>
+				 
+			</article>
+		
+			<div class="clear"></div>
+
+			<hr style="background: #bebebe; margin: 30px 0;">
+			{{ description }}
+
+		</div>
+	</div><!-- /content -->
+{% endblock %}
