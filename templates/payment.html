@@ -2,8 +2,10 @@
 {% block content %}
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <div class="container">
-    <h3>PAYMENT INFORMATION</h3>
-
+<h3>PAYMENT INFORMATION</h3>
+{% if has_cc == True %}
+<p>Saved Account:<br> xxxxxxxxxxxx{{cc}}</p>
+{% endif %}
 
 <form action="" method="POST" id="payment-form">
   <span class="payment-errors"></span>
@@ -71,8 +73,9 @@
   } else {
     // token contains id, last4, and card type
     var token = response.id;
+    var cc = response.card.last4;
 
-    var data = {'stripeToken:' :token};
+    var data = {'stripeToken:' :token, 'cc':cc};
     $.ajax({
       type: "POST",
       dataType: "json",

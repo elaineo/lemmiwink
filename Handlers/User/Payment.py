@@ -13,6 +13,11 @@ class PaymentHandler(BaseHandler):
         if not self.user_prefs: # if user is not logged in, redirect
             self.redirect("/signup")
         if action=='cc':
+            if self.user_prefs.cc:
+                self.params['cc'] = self.user_prefs.cc
+                self.params['has_cc'] = True
+            else:
+                self.params['has_cc'] = False
             self.params['next_url'] = '/m/home'
             self.render('payment.html', **self.params)
 
@@ -30,6 +35,7 @@ class PaymentHandler(BaseHandler):
 
         # Get the credit card details submitted by the form
         token = data.get('stripeToken')
+        cc = data.get('cc')
         userid = u.user_id()
 
         # Create a Customer
@@ -41,6 +47,7 @@ class PaymentHandler(BaseHandler):
 
         #save id to user account
         u.cust_id = customer.id
+        u.cc = cc
         u.put()
         mm = {'status':'ok'}
         self.write(json.dumps(mm))
