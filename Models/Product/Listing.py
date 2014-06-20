@@ -8,14 +8,46 @@ class Category(ndb.Model):
     imglink = ndb.StringProperty()
     description = ndb.TextProperty()
 
+    @classmethod
+    def dump_cat(cls):
+        cats = cls.query()
+        params = []
+        for c in cats:
+            params.append(c.to_dict(True))
+        return params
+
+
+    def to_dict(self, inclprod=False):
+        p = { 'name' : self.name,
+                'imglink' : self.imglink,
+                'description' : self.description}
+        if inclprod:
+            pdict = []
+            listings = Listing.by_cat(self.key)
+            for l in listings:
+                pdict.append(l.to_dict())
+            p['listings'] = pdict
+        return p
+
 class Listing(ndb.Model):
     """Later have reviews, ratings"""
     name = ndb.StringProperty()
     imglink = ndb.StringProperty()
     description = ndb.TextProperty()
-    price = ndb.FloatProperty()
-    unit = ndb.StringProperty()
+    price = ndb.FloatProperty(default=1.00)
+    unit = ndb.StringProperty(default='oz')
 
     @classmethod
     def by_cat(cls, cat):
         return cls.query(ancestor=cat)
+
+    def to_dict(self):
+        p = { 'name' : self.name,
+                'imglink' : self.imglink,
+                'description' : self.description,
+                'price' : self.price,
+                'unit' : self.unit,
+                'key' : self.key.urlsafe()}
+        cat = self.key.parent().get()
+        p['cat'] = cat.name
+        return p

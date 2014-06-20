@@ -1,0 +1,52 @@
+{% extends "base/app.html" %}
+
+{% block content %}
+<script src='/static/js/jquery.mobile.nestedlists.js'></script>
+    <div id="homepage_content" data-role="content">
+		<ul data-role="listview"  class="ui-listview ui-listview-inset">
+		{% for c in catalog %}
+			<li data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-li ui-li-has-thumb ui-btn-up-c">
+				<div class="ui-btn-inner ui-li">
+					<div class="ui-btn-text" style='display:inline;float:left'>
+					  <img src="{{c.imglink}}" class="ui-li-thumb">{{c.name}}
+					  <p class="ui-li-desc">{{c.description}}</p>
+					</div>
+				</div>
+                <ul>
+                {% for l in c.listings %}
+                <li data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-li ui-li-has-thumb ui-btn-up-c">
+                    <a href='/cat/{{l.key}}' class="ui-link-inherit">
+                    <div class="ui-btn-inner ui-li">
+                        <div class="ui-btn-text" style='display:inline;float:left'>
+                          <img src="{{l.imglink}}" class="ui-li-thumb">{{l.name}}
+                          <p class="ui-li-desc">{{l.description}}</p>
+                        </div>
+                    </div>
+                    </a>
+                </li>
+              {% endfor %}
+            </ul>
+			</li>
+		{% endfor %}
+		</ul>
+	  {% for c in catalog %}
+      <div data-role="page" data-url="/1.3.0-rc.1/docs/demos/widgets/listviews/&amp;ui-page=28-6" data-theme="null" data-count-theme="c" tabindex="0" class="ui-page ui-body-null" ><div data-role="header" data-theme="e" class="ui-header ui-bar-e" role="banner">
+        <ul class="ui-listview">
+          {% for l in c.listings %}
+            <li data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-li ui-li-has-thumb ui-btn-up-c">
+                <div class="ui-btn-inner ui-li">
+                    <div class="ui-btn-text" style='display:inline;float:left'>
+                        <a href='/cat/{{l.key}}' class="ui-link-inherit">
+                      <img src="{{l.imglink}}" class="ui-li-thumb">{{l.name}}
+                      <p class="ui-li-desc">{{l.description}}</p>
+                        </a>
+                    </div>
+                    <span style='float:right;'><img src='/static/img/forward.png'></span>
+                </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+	  {% endfor %}
+    </div><!-- /content -->
+{% endblock %}
