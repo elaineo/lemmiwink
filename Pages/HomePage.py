@@ -9,8 +9,11 @@ class HomePage(BaseHandler):
             if self.user_prefs.valid:
                 self.render('catalog.html', **self.params)
             else:
-                self.params['code']=self.user_prefs.code()
-                self.render('home.html', **self.params)
+                if self.user_prefs.cardimg:
+                    self.params['code']=self.user_prefs.code()
+                    self.render('home.html', **self.params)
+                else:
+                    self.redirect('/m/photoid')
         else:
             self.render('signup.html', **self.params)
 

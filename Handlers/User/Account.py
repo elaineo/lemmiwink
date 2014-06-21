@@ -41,6 +41,7 @@ class AccountHandler(BaseHandler):
         password = data.get('password')
         email = data.get('email')
         mm={'error':None}
+        mm['next_url'] = '/m/fillprofile'
         if not valid_email(email):
             mm['error']="That's not a valid email address."
         else:
@@ -82,6 +83,10 @@ class AccountHandler(BaseHandler):
             self.login(u.user_id())
             self.set_current_user()
             mm['status'] = 'ok'
+            if u.cardimg:
+                mm['next_url'] = 'm/home'
+            else:
+                mm['next_url'] = 'm/fillprofile'
         else:
             mm['status'] = 'error'
             mm['error'] = "Invalid Login."

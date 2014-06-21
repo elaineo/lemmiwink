@@ -29,6 +29,10 @@ class ImageServeHandler(BaseHandler):
             response = {'status':'ok'}
             response['upload_url'] = upload_url
             self.write(json.dumps(response))
+        elif action=='view' and resource:
+            self.params['img_url'] = '/imgdown/%s' % (resource)
+            self.render('base/img.html', **self.params)
+
         if resource and action=='success':
             self.response.headers['Content-Type'] = "application/json"
             #url = images.get_serving_url(blobstore.BlobKey(blob_key))

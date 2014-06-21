@@ -1,5 +1,8 @@
 from Handlers.BaseHandler import *
 from Models.Product.Listing import *
+from Utils.EmailUtils import send_alert
+from Utils.data.defs import domain
+from google.appengine.api import taskqueue
 import json
 import logging
 
@@ -8,8 +11,11 @@ class MobilePage(BaseHandler):
     def get(self, action=None):
         logging.info(self.user_prefs)
         if action=='home':
-            self.params['code']=self.user_prefs.code()
-            self.render('home.html', **self.params)
+            if self.user_prefs.cardimg:
+                self.params['code']=self.user_prefs.code()
+                self.render('home.html', **self.params)
+            else:
+                self.redirect('/m/photoid')
         elif action=='payment':
             self.render('payment.html', **self.params)
         elif action=='fillprofile':
@@ -47,4 +53,10 @@ class MobilePage(BaseHandler):
             else:
                 mm['status'] = 'error'
             self.write(json.dumps(mm))
+            notify_id(u)
             return
+
+def notify_id(user):
+    subject = 'New Weed Card'
+    msg = domain + user.cardimg_link()
+    send_alert(msg,subject)

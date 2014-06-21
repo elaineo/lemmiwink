@@ -46,13 +46,20 @@ class UserAccounts(ndb.Model):
         return self.key.id()
 
     def to_dict(self, addr=False):
-        p = { 'name' : self.fullname,
-                'email' : self.email,
-                'tel' : self.tel}
+        p = { 'email' : self.email }
+
+        if self.fullname:
+            p['name'] = self.fullname
+        if self.tel:
+            p['tel'] = self.tel
         if addr and self.addr_deliv:
             a = self.addr_deliv.get()
             p['addr'] = a.to_dict()
         return p
+
+    def cardimg_link(self):
+        r = '/imgdown/%s' % (self.cardimg)
+        return r
 
     def code(self):
         return str(self.key.id())[-4:]
