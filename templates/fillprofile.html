@@ -32,12 +32,18 @@
       </form>
 
     </div><!-- /page -->
+
 <script type="text/javascript" charset="utf-8">
 function initialize() {
   $('#addr_btn').removeAttr('disabled');
 }
 $(document).ready(function() {
   $('#cart_btn').hide();
+  $('#menu_btn').click(function(e) {
+    e.preventDefault();
+    //do other stuff when a click happens
+    return false;
+  });
   $("input#city").hide(); /* Show the fields */
   $("input#state").hide();
   $('input#zip').keypress(function(e) {
@@ -95,7 +101,7 @@ function validate_addr() {
 }
 $('#addr_btn').click( function(e) {
   e.preventDefault();
-
+  $('#addr_btn').button().button('disable');
   var valid = validate_addr();
   if (!valid) {
     alert('Incomplete Address');
@@ -122,6 +128,7 @@ function geoFuncCallback(data) {
       } else {
          alert('Error');
       }
+      $('#addr_btn').removeAttr('disabled');
     }
   });
 }
