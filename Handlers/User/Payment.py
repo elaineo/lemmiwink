@@ -18,7 +18,7 @@ class PaymentHandler(BaseHandler):
                 self.params['has_cc'] = True
             else:
                 self.params['has_cc'] = False
-            self.params['next_url'] = '/m/home'
+            self.params['next_url'] = '/'
             self.render('payment.html', **self.params)
 
     def post(self, action=None):

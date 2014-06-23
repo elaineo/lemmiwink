@@ -7,7 +7,7 @@ class HomePage(BaseHandler):
         # make sure they have a valid card
         if self.user_prefs:
             if self.user_prefs.valid:
-                self.render('catalog.html', **self.params)
+                self.redirect('/m/catalog')
             else:
                 if self.user_prefs.cardimg:
                     self.params['code']=self.user_prefs.code()
@@ -15,7 +15,7 @@ class HomePage(BaseHandler):
                 else:
                     self.redirect('/m/photoid')
         else:
-            self.render('signup.html', **self.params)
+            self.redirect('/account/signup')
 
 class LargePage(BaseHandler):
     """ Home page, first page shown """

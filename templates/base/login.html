@@ -127,9 +127,9 @@ function validate_fields() {
         data: JSON.stringify(data),
         success: function(response) {
           if (response.status == "ok") {
-            $(location).attr('href',"/m/home");
+            $(location).attr('href',response.next_url);
           } else if (response.status =="new") {
-            $(location).attr('href',"/m/fillprofile");
+            $(location).attr('href',response.next_url);
           } else {
              alert(response.error);
           }

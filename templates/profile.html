@@ -14,18 +14,18 @@
         <div class="page-subtitle">
           Delivery Address
         </div>
-        <input type="text" class='input-address' name="address" placeholder="Address" value="{{addr.street}}">
+        <input type="text" class='input-address' name="address" placeholder="Address" {% if addr %} value="{{addr.street}}" {% endif %}>
         <hr class='input-hr'>
-        <input type="text" class='input-address' name="apt" placeholder="Apt / suite / unit" value="{{addr.apt}}">
+        <input type="text" class='input-address' name="apt" placeholder="Apt / suite / unit" {% if addr %}value="{{addr.apt}}"{% endif %}>
         <hr class='input-hr'>
-        <input type="text" class='input-address' id='city' name="city" placeholder="City" value="{{addr.city}}">
+        <input type="text" class='input-address' id='city' name="city" placeholder="City" {% if addr %}value="{{addr.city}}"{% endif %}>
         <hr class='input-hr'>
         <div class="ui-grid-a">
           <div class="ui-block-a">
-            <input type="text" class='input-address' id='state' name="state" placeholder="State" SIZE="2" MAXLENGTH="2" value="{{addr.state}}">
+            <input type="text" class='input-address' id='state' name="state" placeholder="State" SIZE="2" MAXLENGTH="2" {% if addr %}value="{{addr.state}}"{% endif %}>
           </div>
           <div class="ui-block-b">
-            <input type="text" class='input-address' name="zip"  placeholder="Zip" SIZE="5" MAXLENGTH="5" id='zip' value="{{addr.zip}}">
+            <input type="text" class='input-address' name="zip"  placeholder="Zip" SIZE="5" MAXLENGTH="5" id='zip' {% if addr %}value="{{addr.zip}}"{% endif %}>
           </div>
         </div>
         <button class='ui-mini ui-btn' id='addr_btn' disabled>UPDATE</button>
@@ -117,7 +117,7 @@ function geoFuncCallback(data) {
       console.log(JSON.stringify(response));
       if (response.status == "ok") {
           // Go to picture of id
-          $.mobile.changePage('/m/home');
+          $.mobile.changePage('/');
       } else {
          alert('Error');
       }

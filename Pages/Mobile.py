@@ -10,13 +10,9 @@ class MobilePage(BaseHandler):
     """ Mobile menu pages """
     def get(self, action=None):
         logging.info(self.user_prefs)
-        if action=='home':
-            if self.user_prefs.cardimg:
-                self.params['code']=self.user_prefs.code()
-                self.render('home.html', **self.params)
-            else:
-                self.redirect('/m/photoid')
-        elif action=='payment':
+        if not self.user_prefs:
+            self.redirect('/account/signin')
+        if action=='payment':
             self.render('payment.html', **self.params)
         elif action=='fillprofile':
             self.render('fillprofile.html', **self.params)
@@ -34,8 +30,6 @@ class MobilePage(BaseHandler):
             self.render('catalog.html', **self.params)
         elif action=='template':
             self.render('template.html', **self.params)
-        elif action=='signup':
-            self.render('signup.html', **self.params)
 
     def post(self, action=None):
         if not self.user_prefs:
