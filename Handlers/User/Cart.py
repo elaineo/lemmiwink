@@ -11,4 +11,8 @@ class CartHandler(BaseHandler):
         if not self.user_prefs: # if user is not logged in, redirect
             self.redirect("/signup")
         if action=='view':
+            # get user's cart items
+            c = Cart.dump_cart(self.user_prefs.key)
+            if c:
+                self.params['cart'] = c
             self.render('cart.html', **self.params)

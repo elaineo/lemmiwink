@@ -1,0 +1,33 @@
+{% extends "base/app.html" %}
+{% block content %}
+    <div id="homepage_content" data-role="content">
+    <div class="page-subtitle">
+        Cart
+        <span class='editAddr'><i class='icon-pencil'></i></span>
+      </div>
+      <div class='cartItems'>
+        <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                <img src="/static/img/product-pics/flower-godfather.jpg" class="ui-li-thumb">
+                <h2 class="ui-li-heading">Godfather flower</h2>
+                <p class="ui-li-desc">1/8 oz</p>
+            </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
+            <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+                <img src="/static/img/product-pics/roll-girlscout.jpg" class="ui-li-thumb">
+                <h2 class="ui-li-heading">Girl scout cookie</h2>
+                <p class="ui-li-desc">roll (approx 1 gram)</p></a>
+            </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
+            <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-last-child ui-btn-hover-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="#" class="ui-link-inherit">
+                <img src="/static/img/product-pics/flower-ogkush.jpg" class="ui-li-thumb">
+                <h2 class="ui-li-heading">Street crack</h2>
+                <p class="ui-li-desc">1/8 oz</p></a>
+            </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
+        </ul>
+      </div>
+    </div><!-- /content -->
+<script>
+$(document).ready(function(){
+  $('#cart_btn').hide();
+  });
+</script>
+{% endblock %}

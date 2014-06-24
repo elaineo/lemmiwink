@@ -12,10 +12,19 @@ class CartItem(ndb.Model):
 
 
 class Cart(ndb.Model):
-    cart_item = ndb.StructuredProperty(CartItem)
+    cart_item = ndb.StructuredProperty(CartItem, repeated=True)
     code = ndb.KeyProperty()    #Promo code
     updated = ndb.DateTimeProperty(auto_now=True)
     created = ndb.DateTimeProperty(auto_now_add=True)
+
+    def to_dict(self):
+        items = []
+        for i in self.cart_item:
+            q = i.item.get().to_dict()
+            q['qty'] = i.quantity
+            items.append(q)
+        p = { 'items' : items}
+        return p
 
     @classmethod
     def by_userid(cls, userid):
@@ -26,4 +35,10 @@ class Cart(ndb.Model):
     def by_key(cls, key):
         return cls.query(ancestor=key)
 
-
+    @classmethod
+    def dump_cart(cls, key):
+        c = cls.by_key(key).get()
+        if c:
+            return c.to_dict()
+        else:
+            return None
