@@ -5,29 +5,77 @@
         Cart
         <span class='editAddr'><i class='icon-pencil'></i></span>
       </div>
-      <div class='cartItems'>
-        <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-            <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
+      <div>
+        <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" id='cartItems'>
+            <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-theme="c" class="ui-btn ui-li ui-li-has-thumb ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text" style='display:inline-block'>
                 <img src="/static/img/product-pics/flower-godfather.jpg" class="ui-li-thumb">
                 <h2 class="ui-li-heading">Godfather flower</h2>
                 <p class="ui-li-desc">1/8 oz</p>
-            </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
-            <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text">
-                <img src="/static/img/product-pics/roll-girlscout.jpg" class="ui-li-thumb">
-                <h2 class="ui-li-heading">Girl scout cookie</h2>
-                <p class="ui-li-desc">roll (approx 1 gram)</p></a>
-            </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
-            <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-last-child ui-btn-hover-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="#" class="ui-link-inherit">
-                <img src="/static/img/product-pics/flower-ogkush.jpg" class="ui-li-thumb">
-                <h2 class="ui-li-heading">Street crack</h2>
-                <p class="ui-li-desc">1/8 oz</p></a>
-            </div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>
+            </div>
+            <div style='display:inline-block; float:right; text-align:right'>
+                <div style='font-weight:500;' class='itemOrder'><span class='itemQty'>5</span><span style='margin-right:15px;'> x</span><span class='itemPrice' style='color:#2699ae'> 58.00</span></div>
+                <div class="ui-grid-a" style='padding-left:10px;'>
+                    <div class="ui-block-a"><a href="#" data-theme='b' data-role="button" data-icon="minus" class='minusBtn' data-iconpos="notext" data-mini="true"></a></div>
+                    <div class="ui-block-b"><a href="#" data-theme='b' data-role="button" data-icon="plus" class='plusBtn' data-iconpos="notext" data-mini="true"></a></div>
+                </div></div>
+            </div>
+            </li>
         </ul>
+        <hr>
+        <div class='ui-grid-a' style='padding:10px;'>
+            <div class="ui-block-a" style='padding-right:20%'>
+                <span style='font-size:15px;'>Promo Code?</span>
+                <input type='text' maxlength='8' size='4' data-mini="true">
+            </div>
+            <div class="ui-block-b">
+                <div class='ui-grid-a'>
+                    <div class='ui-block-a' style='text-align:right'>
+                    <p><span class='bold-label'>Subtotal</span><br>
+                    Shipping</p>
+                    <p class='bold-label'>Total</p>
+                    </div>
+                    <div class='ui-block-b' style='text-align:right'>
+                    <p><span class='bold-label' id='subtotal'></span><br>
+                    5.00</p>
+                    <p class='bold-label' id='total'></p>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
     </div><!-- /content -->
 <script>
 $(document).ready(function(){
   $('#cart_btn').hide();
+  $('a.plusBtn').click(function(e) {
+    var qtyBox = $(this).parent().parent().parent().find('.itemQty');
+    var qty = parseInt(qtyBox.html());
+    if (qty < 99)
+      qtyBox.html(qty+1);
+    updateTotal();
   });
+  $('a.minusBtn').click(function(e) {
+    var qtyBox = $(this).parent().parent().parent().find('.itemQty');
+    var qty = parseInt(qtyBox.html());
+    if (qty > 0)
+      qtyBox.html(qty-1);
+    updateTotal();
+  });
+  });
+function updateTotal() {
+    var subTotal = 0;
+    var total = 0;
+    $('ul#cartItems').find('.itemOrder').each(function(){
+        var qty = $(this).find('.itemQty').html();
+        var price = $(this).find('.itemPrice').html();
+        subTotal += parseFloat(qty) * parseFloat(price);
+    })
+    $('#subtotal').html(subTotal.toFixed(2));
+    if (subTotal==0)
+        total = 0;
+    else
+        total = subTotal + 5;
+    $('#total').html('$'+total.toFixed(2).toString());
+}
 </script>
 {% endblock %}

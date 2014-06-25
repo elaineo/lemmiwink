@@ -13,6 +13,9 @@ body {
 img {
 	height: auto;
 }
+.bold-label {
+	font-size:15px;font-weight:600;
+}
 .input-address {
   height: 40px;
   padding: 40 10 40 10 !important;
@@ -992,4 +995,16 @@ margin-right: 3px;
 text-align: center;
 width: 43px;
 }
+
+.stat .key {
+	font-size: 10px;
+	font-style: italic;
+	color: #555;
+	margin-top: 2px;
 }
+.stat .val {
+	margin-top: 4px;
+	font-weight: bold;
+
+}
+
