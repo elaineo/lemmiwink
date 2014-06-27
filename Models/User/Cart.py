@@ -13,9 +13,8 @@ class CartItem(ndb.Model):
 
 class Cart(ndb.Model):
     cart_item = ndb.StructuredProperty(CartItem, repeated=True)
-    code = ndb.KeyProperty()    #Promo code
+    promo = ndb.FloatProperty(default=0.00)    #Promo code
     updated = ndb.DateTimeProperty(auto_now=True)
-    created = ndb.DateTimeProperty(auto_now_add=True)
 
     def to_dict(self):
         items = []
@@ -25,6 +24,11 @@ class Cart(ndb.Model):
             items.append(q)
         p = { 'items' : items}
         return p
+
+    # get index of cart item by key
+    def item_idx(self, key):
+        q = [i for i, j in enumerate(self.cart_item) if j.item == key]
+        return q[0]
 
     @classmethod
     def by_userid(cls, userid):

@@ -57,7 +57,7 @@
 $(document).ready(function() {
   var promo = 0;
   updateTotal();
-  // $('.promoTotal').hide();
+  $('.promoTotal').hide();
   $('#cart_btn').hide();
   $('#promo_btn').click(function() {
     var code = $('input#promo_code').val();
@@ -89,7 +89,7 @@ $(document).ready(function() {
     var key = qtyBox.attr('data-key');
     var qty = parseInt(itemQty.html());
     if (qty < 99)
-      qtyBox.html(qty+1);
+      itemQty.html(qty+1);
     updateTotal();
     updateCart('inc', key, qty);
   });
@@ -99,7 +99,7 @@ $(document).ready(function() {
     var key = qtyBox.attr('data-key');
     var qty = parseInt(itemQty.html());
     if (qty > 0)
-      qtyBox.html(qty-1);
+      itemQty.html(qty-1);
     updateTotal();
     updateCart('dec', key, qty);
   });
