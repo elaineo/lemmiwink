@@ -1,6 +1,12 @@
 {% extends "base/app.html" %}
+{% block pagetitle %}<img src="/static/img/lemmiwink.png" alt="Logo">{% endblock %}
+{% block rightbtn %}
+{% endblock %}
 {% block content %}
     <div id="homepage_content" data-role="content">
+      <div class="page-subtitle">
+        Welcome to Lemmiwink
+      </div>
       <div class='addItems'>
         <h3>Your account is currently waiting for approval.</h3>
         <p>
@@ -29,10 +35,5 @@ function loadContacts()
     extras: { fields: ["displayName", "name", "phoneNumbers", "emails"] }});
     navigator.startActivity(contactIntent, contactsSuccess, contactsFail);
 }
-</script>
-<script>
-$(document).ready(function(){
-  $('#cart_btn').hide();
-  });
 </script>
 {% endblock %}

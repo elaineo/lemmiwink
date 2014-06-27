@@ -1,7 +1,14 @@
 {% extends "base/app.html" %}
+{% block pagetitle %}<img src="/static/img/lemmiwink.png" alt="Logo">{% endblock %}
+{% block rightbtn %}
+
+{% endblock %}
+
 {% block content %}
+<div class="page-subtitle">
+  Payment Information
+</div>
 <div class="container">
-<h3>PAYMENT INFORMATION</h3>
 {% if has_cc == True %}
 <p>Saved Account:<br> xxxxxxxxxxxx{{cc}}</p>
 {% endif %}
@@ -92,10 +99,5 @@
     });
   }
 };
-</script>
-<script>
-$(document).ready(function() {
-  $('#cart_btn').hide();
-  });
 </script>
 {% endblock %}

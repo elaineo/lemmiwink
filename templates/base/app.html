@@ -108,11 +108,8 @@
 				<img class="header-btn-image" style="width: 100%; height: 100%;" src="/static/img/menu.png" alt="Menu">
 				<span class="menu-btn-background"></span>
 			</a>
-			<span class="page-tagline"><img src="/static/img/lemmiwink.png" alt="Logo"></span>
-			<a style="float: right;" class="header_button" href="/cart/view" data-inline="true" data-role="button" data-corners="false" data-theme="c" id='cart_btn'>
-				<img style="width: 100%; height: 100%;" src="/static/img/cart.png" alt="Share">
-				<span class="btn-background share-btn-background"></span>
-			</a>
+			<span class="page-tagline">{% block pagetitle %}{% endblock %}</span>
+      {% block rightbtn %}{% endblock %}
 			<div style="clear: both"></div>
 		</div>
 	</div><!-- /header -->

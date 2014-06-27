@@ -1,4 +1,8 @@
 {% extends "base/app.html" %}
+{% block pagetitle %}<img src="/static/img/lemmiwink.png" alt="Logo">{% endblock %}
+{% block rightbtn %}
+
+{% endblock %}
 {% block content %}
 
     <div id="homepage_content" data-role="content">
@@ -38,7 +42,6 @@ function initialize() {
   $('#addr_btn').removeAttr('disabled');
 }
 $(document).ready(function() {
-  $('#cart_btn').hide();
   $('#menu_btn').click(function(e) {
     e.preventDefault();
     //do other stuff when a click happens

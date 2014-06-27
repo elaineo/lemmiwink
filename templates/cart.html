@@ -1,9 +1,12 @@
 {% extends "base/app.html" %}
+{% block pagetitle %}<img src="/static/img/lemmiwink.png" alt="Logo">{% endblock %}
+{% block rightbtn %}
+<span style='float:right;color:#fff'>Checkout</span>
+{% endblock %}
 {% block content %}
     <div id="homepage_content" data-role="content">
     <div class="page-subtitle">
         Cart
-        <span class='editAddr'><i class='icon-pencil'></i></span>
       </div>
       {% if cart %}
       <div>

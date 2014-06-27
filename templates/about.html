@@ -1,13 +1,16 @@
 {% extends "base/app.html" %}
+{% block pagetitle %}<img src="/static/img/lemmiwink.png" alt="Logo">{% endblock %}
+{% block rightbtn %}
+<a style="float: right;" class="header_button" href="/cart/view" data-inline="true" data-role="button" data-corners="false" data-theme="c" id='cart_btn'>
+    <img style="width: 100%; height: 100%;" src="/static/img/cart.png" alt="Share">
+    <span class="btn-background share-btn-background"></span>
+</a>
+{% endblock %}
+
 {% block content %}
     <div id="homepage_content" data-role="content">
       <div class='addItems'>
         <p>Millions of Americans turn to cannabis for its therapeutic benefits.  Lemmiwink is proud to deliver only the highest quality marijuana strains to a select group of connoisseurs.  We make our wares available on demand through our mobile interface.  We currently provide delivery on demand to addresses in San Francisco.</p>
       </div>
     </div><!-- /content -->
-<script>
-$(document).ready(function(){
-  $('#cart_btn').hide();
-  });
-</script>
 {% endblock %}
