@@ -35,18 +35,25 @@ class Listing(ndb.Model):
     imglink = ndb.StringProperty()
     description = ndb.TextProperty()
     price = ndb.FloatProperty(default=1.00)
-    unit = ndb.StringProperty(default='oz')
+    unit = ndb.StringProperty(default='1/8 oz')
+    thc = ndb.FloatProperty(default=-1)
+    cbd = ndb.FloatProperty(default=-1)
+    strain_type = ndb.StringProperty()
 
     @classmethod
     def by_cat(cls, cat):
         return cls.query(ancestor=cat)
 
     def to_dict(self):
-        p = { 'name' : self.name,
+        p = {   'name' : self.name,
                 'imglink' : self.imglink,
                 'description' : self.description,
-                'price' : self.price,
+                'price' : '%.0f' % self.price,
+                'pricefl' : '%.2f' % self.price,
                 'unit' : self.unit,
+                'thc' : self.thc,
+                'cbd' : self.cbd,
+                'strain_type': self.strain_type,
                 'key' : self.key.urlsafe()}
         cat = self.key.parent().get()
         p['cat'] = cat.name

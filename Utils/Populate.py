@@ -14,7 +14,7 @@ class PopulateHandler(BaseHandler):
                 cat = Category(name = c['name'], imglink = c['filename'], description = c['desc'])
                 cat.put()
                 for l in c['listings']:
-                    p = Listing(name = l['name'], imglink = l['filename'], description =l['desc'],
+                    p = Listing(name = l['name'], imglink = l['filename'], description =l['desc'], price = l['price'], thc = l['thc'], cbd = l['cbd'], strain_type = l['strain_type'],
                         parent = cat.key )
                     p.put()
             self.write('catalog populated.')

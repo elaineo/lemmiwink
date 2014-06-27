@@ -1,6 +1,4 @@
 {% extends "base/app.html" %}
-{% set title='Red Congo' %}
-{% set description='A blend of Congolese, Mexican, and Afghani Landrace. Big fluffy buds with a sweet and pungent nose. Excellent for medicating when one still needs to be task-oriented, highly functional, and busy busy busy.' %}
 {% block content %}
 	<div id="header" data-role="header" data-position="fixed" data-theme="c">
 		<div class="header_wrapper">
@@ -37,10 +35,10 @@
 						<div class="blog-single-title">
 							<section class="blog-single-title-text">
 								<a href="blog-single-5.html">
-									<p class="title">{{ title }}</p>
+									<p class="title">{{ name }}</p>
 								</a>
 								<p class="excerpt">
-								{{ price }}
+								${{ pricefl }} per eighth
 								</p>
 							</section>
 								
@@ -49,10 +47,24 @@
 					</div>
 
 				</div>
-				<div class="blog-featured-image blog-image-center text-transparent" style='width: 200px;'>
+				<div class="blog-featured-image blog-image-center text-transparent" style='width: 200px; margin: 0 auto;'>
 				  <div style="display: inline-block; max-width: 100%; position: relative;">
-					<div class='stat'>23</div>
-					<div class='stat'>MJ</div>
+					<div class='stat'>
+						<div class='val'>{{ strain_type }}</div>
+						<div class='key'>Type</div>
+					</div>
+					<div class='stat'>
+						<div class='val'>{{ thc }}</div>
+						<div class='key'>THC</div>
+					</div>
+					<div class='stat'>
+						<div class='val'>{{ cbd }}</div>
+						<div class='key'>CBD</div>
+					</div>
+					<div class='stat'>
+						<div class='val'>${{ price }}</div>
+						<div class='key'>Price</div>
+					</div>
 				  </div>
 				</div>
 				 

@@ -1,7 +1,51 @@
-folder,name,price,image,strength,type,flavor,density
-flowers,Godfather,$55 ,flower-godfather,3,I+S,Sw,C
-flowers,OG Kush,$55 ,flower-ogkush,3,I+S,Sp,F
-flowers,Red Congo,$55 ,flower-redcongo,3,S,So,F
-flowers,Purple Alien,$55 ,flower-purplealien,3,I,Sw,D
-flowers,Girl Scout Cookies,$55 ,flower-girlscout,3,H,Sw,D
-rolls,Girl Scout Cookies (5 joints),$55 ,roll-girlscout,3,H,Sw,D
+folder,name,price,image,strength,type,flavor,density,Apothecarium,Barbary,THC,CBD,CBN,On Menu,Adesc,Bdesc
+flowers,Godfather,$55 ,flower-godfather,3,I+S,Sw,C,X,,,,,,,
+flowers,Fire OG Kush,$55 ,flower-ogkush,3,I+S,Sp,F,X,,,,,,,
+flowers,Red Congo,$55 ,flower-redcongo,3,S,So,F,no longer,,,,,,,
+flowers,Purple Alien,$55 ,flower-purplealien,3,I,Sw,D,no longer,,,,,,,
+flowers,Girl Scout Cookies,$55 ,flower-girlscout,3,H,Sw,D,55/400,45/295,17.9,?,?,X,"A blend of Durban Poison, OG Kush, and Granddaddy Purple. Known for its densely resinated, purple, green, and orange flowers and its unique sweet, spicy, and savory scent. Excellent for combatting daytime pain and anxiety.","Girl Scout Cookies was crossed with OG Kush, Durban Poison, and Cherry Kush to create flavors of cotton candy mixed with fruit and spice."
+flowers,Blackberry Kush,,,3,I,Sw,F,46/333,45/295,18.2,0.5,?,X,A cross between Blueberry Kush & Afghani Mother. Frosty flowers with purple undertones and a sweet Kushy aroma. These crystalline gems are excellent for quieting your mind and relaxing your body.,Organic Soil Grown
+flowers,Sour Diesel,,,3,S,So,F,46/333,30/175,?,?,?,X,"A blend of original Diesel with Northern Lights, Shiva, and Hawaiian. Classic light yellowy green with small specks of dark green. Fresh, loud, sour-fuel aroma with notes of sharp herbs. Motivating and energetic; made for for going out and changing the world. Go on now!",
+,Leda Uno,,,,,,,,X,,,,,,
+,OG Chem,,,,,,,,X,,,,,,
+,Apollo,,,,,,,,X,,,,,,
+,Bubba Kush,,,,,,,,X,,,,,,
+,Blue Cheese,,,,,,,,X,,,,,,
+,Lost Coast OG,,,,,,,,X,,,,,,
+,Brainstorm,,,,,,,,X,,,,,,
+,Lebanese Love Balm,,,,,,,,X,,,,,,
+,Sour Blue,,,,,,,,X,,,,,,
+,Grand Daddy Purple,,,,,,,,X,,,,,,
+,Green Prine,,,,,,,,X,,,,,,
+,Berry White,,,3,S+I,So,D,42/306,38/250,18.6,0.6,?,X,"A cross between Blueberry and White Widow. Berry’s back!! And smoother than ever. Substantial outdoor flowers, dusted with trichomes and dashes of light purple. Cheerful, soulful, trippy and fun, Berry White is perfect for staying cool in social situations – ‘I can’t get enough of this bud, baby!’",Blueberry X White Widow parents give this sativa dominant hybrid lots of energy with a sweet berry taste.
+,Cannatonic,,,2,S+I,Sp,D,52/373,45/295,9.8,9.8,?,X,High CBD strain - test results coming soon,This CBD rich strain relieves a multitude of conditions associated with pain and inflammation with less psychoactive effects.
+,Lamb's Bread,,,3,S,Sw,F,55/400,45/295,21.3,0.2,?,X,"Jamaican Landrace with unknown genetics. Golden-green buds with signature dread and a faint aroma of fresh grass and cheese. This classic Sativa of legend was known to be the favorite of Bob Marley himself. Perfect for creative writing, crafting, and getting deep into your head.","Rumored to be Bob Marley's fav strain, this produces a creative high that has been known to enhance positive introspection."
+,Master Kush,,,,,,,,X,,,,,,
+,Platinum Kush,,,,,,,,X,,,,,,
+,Chem Dawg,,,,,,,,X,,,,,,
+,Super Silver Haze,,,,,,,,X,,,,,,
+,Flav,,,,,,,,X,,,,,,
+,Chem 91',,,,,,,,X,,,,,,
+,Casey Jones,,,,,,,,X,,,,,,
+,Ingrid,,,,,,,,X,,,,,,
+,Trainwreck,,,,,,,,X,,,,,,
+,Mazar,,,,,,,,X,,,,,,
+,Sensi Star,,,,,,,,X,,,,,,
+,Jack Herer,,,3,S,Sp,D,55/400,50/320,21.5,0.8,?,X,"Haze with Shiva Skunk, and Northern Lights #5. Evergreen buds with coppery red hairs and a sweet syrupy aroma of evergreen and lime. Expect a clear, energizing buzz that is perfect for getting work done and well suited to social situations.",
+,Dutch Treat,,,,,,,,X,,,,,,
+,Blue Lightning,,,,,,,,X,,,,,,
+,Banana Wifi,,,,,,,,X,,,,,,
+,Amsterdam Headband,,,,,,,,X,,,,,,
+,Platinum Jack,,,,,,,,X,,,,,,
+,Kush Diesel,,,,,,,,X,,,,,,
+,Lavender Goo,,,,,,,,X,,,,,,
+,Burkle,,,,,,,X,,,,,,,
+,Honeyberry,,,,,,,X,,,,,,,
+,Grape Soda,,,,,,,X,,,,,,,
+,Green Goddess,,,,,,,X,,,,,,,
+,Godfather OG,,,,,,,X,,,,,,,
+,Cloud 9,,,,,,,X,,,,,,,
+,Cherry Pie,,,,,,,X,,,,,,,
+,Blue Dream,,,,,,,X,,,,,,,
+,Blueberry Diesel,,,,,,,X,,,,,,,
+,OG Kush,,,,,,,,X,,,,,,
