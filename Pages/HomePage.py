@@ -10,7 +10,7 @@ class HomePage(BaseHandler):
                 self.redirect('/m/catalog')
             else:
                 if self.user_prefs.cardimg:
-                    self.params['code']=self.user_prefs.code()
+                    self.params['code']=self.user_prefs.promocode
                     self.render('home.html', **self.params)
                 else:
                     self.redirect('/m/photoid')

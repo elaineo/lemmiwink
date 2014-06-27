@@ -12,30 +12,39 @@
                 <h2 class="ui-li-heading">Godfather flower</h2>
                 <p class="ui-li-desc">1/8 oz</p>
             </div>
-            <div style='display:inline-block; float:right; text-align:right'>
+            <div data-key='{{key}}' style='display:inline-block; float:right; text-align:right'>
                 <div style='font-weight:500;' class='itemOrder'><span class='itemQty'>5</span><span style='margin-right:15px;'> x</span><span class='itemPrice' style='color:#2699ae'> 58.00</span></div>
                 <div class="ui-grid-a" style='padding-left:10px;'>
-                    <div class="ui-block-a"><a href="#" data-theme='b' data-role="button" data-icon="minus" class='minusBtn' data-iconpos="notext" data-mini="true"></a></div>
-                    <div class="ui-block-b"><a href="#" data-theme='b' data-role="button" data-icon="plus" class='plusBtn' data-iconpos="notext" data-mini="true"></a></div>
+                    <div class="ui-block-a"><a data-role="button" data-icon="minus" class='minusBtn' data-iconpos="notext" data-mini="true"></a></div>
+                    <div class="ui-block-b"><a data-role="button" data-icon="plus" class='plusBtn' data-iconpos="notext" data-mini="true"></a></div>
                 </div></div>
             </div>
             </li>
         </ul>
         <hr>
         <div class='ui-grid-a' style='padding:10px;'>
-            <div class="ui-block-a" style='padding-right:20%'>
+            <div class="ui-block-a" >
                 <span style='font-size:15px;'>Promo Code?</span>
-                <input type='text' maxlength='8' size='4' data-mini="true">
+                <div class='ui-grid-a'>
+                    <div class='ui-block-a' style='text-align:right'>
+                    <input type='text' id='promo_code' maxlength='8' size='4' data-mini="true" style='min-height:2.5em;padding:0;border:1px solid #ddd'>
+                    </div>
+                    <div class='ui-block-b'>
+                    <button id='promo_btn' class="ui-btn ui-mini ui-btn-inline" style='margin:0;'>Apply</button>
+                    </div>
+                </div>
             </div>
             <div class="ui-block-b">
                 <div class='ui-grid-a'>
                     <div class='ui-block-a' style='text-align:right'>
                     <p><span class='bold-label'>Subtotal</span><br>
+                    <span class='promoTotal'>Promo<br></span>
                     Shipping</p>
                     <p class='bold-label'>Total</p>
                     </div>
                     <div class='ui-block-b' style='text-align:right'>
                     <p><span class='bold-label' id='subtotal'></span><br>
+                    <span class='promoTotal' id='promoAmt' style='color:#339933'>0.00<br></span>
                     5.00</p>
                     <p class='bold-label' id='total'></p>
                     </div>
@@ -45,21 +54,54 @@
       </div>
     </div><!-- /content -->
 <script>
-$(document).ready(function(){
+$(document).ready(function() {
+  var promo = 0;
+  updateTotal();
+  // $('.promoTotal').hide();
   $('#cart_btn').hide();
+  $('#promo_btn').click(function() {
+    var code = $('input#promo_code').val();
+    data = {'code': code};
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: "/cart/promo",
+        data: JSON.stringify(data),
+        success: function(response) {
+          console.log(JSON.stringify(response));
+          if (response.status=='ok') {
+            $('.promoTotal').show();
+            $('#promoAmt').html(response.promo + '<br>');
+            $('input#promo_code').val('');
+          } else {
+            alert(response.status);
+            $('.promoTotal').hide();
+            $('#promoAmt').html('0.00'+ '<br>');
+          }
+          updateTotal();
+        }
+      });
+  })
   $('a.plusBtn').click(function(e) {
-    var qtyBox = $(this).parent().parent().parent().find('.itemQty');
-    var qty = parseInt(qtyBox.html());
+    var qtyBox = $(this).parent().parent().parent();
+    var itemQty = qtyBox.find('.itemQty');
+    var key = qtyBox.attr('data-key');
+    var qty = parseInt(itemQty.html());
     if (qty < 99)
       qtyBox.html(qty+1);
     updateTotal();
+    updateCart('inc', key, qty);
   });
   $('a.minusBtn').click(function(e) {
-    var qtyBox = $(this).parent().parent().parent().find('.itemQty');
-    var qty = parseInt(qtyBox.html());
+    var qtyBox = $(this).parent().parent().parent();
+    var itemQty = qtyBox.find('.itemQty');
+    var key = qtyBox.attr('data-key');
+    var qty = parseInt(itemQty.html());
     if (qty > 0)
       qtyBox.html(qty-1);
     updateTotal();
+    updateCart('dec', key, qty);
   });
   });
 function updateTotal() {
@@ -71,11 +113,26 @@ function updateTotal() {
         subTotal += parseFloat(qty) * parseFloat(price);
     })
     $('#subtotal').html(subTotal.toFixed(2));
+    var promo = parseFloat($('#promoTotal').text());
     if (subTotal==0)
         total = 0;
     else
         total = subTotal + 5;
     $('#total').html('$'+total.toFixed(2).toString());
+}
+function updateCart(action, item, qty) {
+  var data = {'action':action, 'key':item, 'qty':qty};
+  $.ajax({
+    type: "POST",
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    url: "/cart/update",
+    data: JSON.stringify(data),
+    success: function(response) {
+      console.log(JSON.stringify(response));
+      //doesn't really matter, continue
+    }
+  });
 }
 </script>
 {% endblock %}

@@ -2,6 +2,7 @@ from Handlers.BaseHandler import *
 from Models.User.Account import *
 from Utils.UserUtils import *
 from google.appengine.api import taskqueue
+from Models.User.Cart import *
 import hashlib
 import logging
 import json
@@ -62,6 +63,8 @@ class AccountHandler(BaseHandler):
         else:
             u = UserAccounts(email = email, pwhash = make_pw_hash(email, password))
             u.put()
+            # create cart on acct creation
+            c = Cart(parent=u.key).put()
             # return mobile login cookies
             mm['status'] = 'new'
             logging.info(u.user_id())
