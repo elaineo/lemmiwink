@@ -5,21 +5,24 @@
         Cart
         <span class='editAddr'><i class='icon-pencil'></i></span>
       </div>
+      {% if cart %}
       <div>
         <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" id='cartItems'>
+            {% for c in cart.items %}
             <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-theme="c" class="ui-btn ui-li ui-li-has-thumb ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text" style='display:inline-block'>
-                <img src="/static/img/product-pics/flower-godfather.jpg" class="ui-li-thumb">
-                <h2 class="ui-li-heading">Godfather flower</h2>
-                <p class="ui-li-desc">1/8 oz</p>
+                <img src="{{c.imglink}}" class="ui-li-thumb">
+                <h2 class="ui-li-heading">{{c.name}}</h2>
+                <p class="ui-li-desc">{{c.unit}}</p>
             </div>
-            <div data-key='{{key}}' style='display:inline-block; float:right; text-align:right'>
-                <div style='font-weight:500;' class='itemOrder'><span class='itemQty'>5</span><span style='margin-right:15px;'> x</span><span class='itemPrice' style='color:#2699ae'> 58.00</span></div>
+            <div data-key='{{c.key}}' style='display:inline-block; float:right; text-align:right'>
+                <div style='font-weight:500;' class='itemOrder'><span class='itemQty'>{{ c.qty }}</span><span style='margin-right:15px;'> x</span><span class='itemPrice' style='color:#2699ae'> {{c.pricefl}}</span></div>
                 <div class="ui-grid-a" style='padding-left:10px;'>
                     <div class="ui-block-a"><a data-role="button" data-icon="minus" class='minusBtn' data-iconpos="notext" data-mini="true"></a></div>
                     <div class="ui-block-b"><a data-role="button" data-icon="plus" class='plusBtn' data-iconpos="notext" data-mini="true"></a></div>
                 </div></div>
             </div>
             </li>
+            {% endfor %}
         </ul>
         <hr>
         <div class='ui-grid-a' style='padding:10px;'>
@@ -44,7 +47,7 @@
                     </div>
                     <div class='ui-block-b' style='text-align:right'>
                     <p><span class='bold-label' id='subtotal'></span><br>
-                    <span class='promoTotal' id='promoAmt' style='color:#339933'>0.00<br></span>
+                    <span class='promoTotal' id='promoAmt' style='color:#339933'>{{cart.promo}}<br></span>
                     5.00</p>
                     <p class='bold-label' id='total'></p>
                     </div>
@@ -52,6 +55,11 @@
             </div>
         </div>
       </div>
+    {% else %}
+    <div style='height:100%;width:100%;text-align:center;'>
+    <h4>There are no items in your cart.</h4>
+    </div>
+    {% endif %}
     </div><!-- /content -->
 <script>
 $(document).ready(function() {

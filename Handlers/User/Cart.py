@@ -14,7 +14,7 @@ class CartHandler(BaseHandler):
         if action=='view':
             # get user's cart items
             c = Cart.dump_cart(self.user_prefs.key)
-            if c:
+            if c and len(c.items)>0:
                 self.params['cart'] = c
             self.render('cart.html', **self.params)
 
@@ -65,6 +65,8 @@ class CartHandler(BaseHandler):
             mm['status'] = 'ok'
             cart = Cart.by_key(self.user_prefs.key)
             cart.promo = 10.00
+            cart.code = code
+            cart.put()
         else:
             mm['status'] = 'Invalid code.'
         self.write(json.dumps(mm))

@@ -13,6 +13,7 @@ class CartItem(ndb.Model):
 
 class Cart(ndb.Model):
     cart_item = ndb.StructuredProperty(CartItem, repeated=True)
+    code = ndb.StringProperty()
     promo = ndb.FloatProperty(default=0.00)    #Promo code
     updated = ndb.DateTimeProperty(auto_now=True)
 
@@ -22,7 +23,9 @@ class Cart(ndb.Model):
             q = i.item.get().to_dict()
             q['qty'] = i.quantity
             items.append(q)
-        p = { 'items' : items}
+        p = { 'items' : items,
+               'code' : self.code,
+               'promo' : '%.2f' % self.promo}
         return p
 
     # get index of cart item by key
