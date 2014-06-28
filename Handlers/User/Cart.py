@@ -3,6 +3,7 @@ from Handlers.BaseHandler import *
 from Models.User.Account import *
 from Models.User.Cart import *
 from Utils.ValidUtils import parse_unit
+from Utils.data.defs import default_shipping
 import logging
 import json
 
@@ -17,6 +18,7 @@ class CartHandler(BaseHandler):
             logging.info(c)
             if c and len(c['cart_items'])>0:
                 self.params['cart'] = c
+                self.params['shipping'] = '%.2f' % default_shipping
             self.render('cart.html', **self.params)
 
     def post(self, action=None):
