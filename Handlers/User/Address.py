@@ -33,7 +33,6 @@ class AddressHandler(BaseHandler):
         zipcode = data.get('zip')
         lat = data.get('lat')
         lon = data.get('lon')
-        code = data.get('code')
         mm={'error':None}
         if not name or not tel or not zipcode:
             mm['error']="Please complete all fields."
@@ -42,7 +41,7 @@ class AddressHandler(BaseHandler):
         u.fullname = name
         u.tel = tel
 
-        if update:
+        if update and u.addr_deliv:
             new_addr = u.addr_deliv.get()
         else:
             new_addr = Address()
@@ -54,11 +53,8 @@ class AddressHandler(BaseHandler):
         if lat and lon:
             locpt = ndb.GeoPt(lat=lat, lon=lon)
             new_addr.locpt = locpt
-        logging.info(code)
         new_addr.put()
-        if code:
-            u.promocode = code
-        if not update:
+        if not update or not u.addr_deliv:
             u.addr_deliv = new_addr.key
         u.put()
 
