@@ -17,6 +17,10 @@ class CartHandler(BaseHandler):
             logging.info(c)
             if c and len(c['cart_items'])>0:
                 self.params['cart'] = c
+                if self.user_prefs.cust_id:
+                    self.params['chckout_url'] = '/pay/checkout'
+                else:
+                    self.params['chckout_url'] = '/pay/cc?cart=1'
             self.render('cart.html', **self.params)
 
     def post(self, action=None):
@@ -85,10 +89,4 @@ class CartHandler(BaseHandler):
             mm['status'] = 'Invalid code.'
         self.write(json.dumps(mm))
         return
-
-        #check to see if they have valid cc
-        if self.user_prefs.cust_id:
-            mm['next_url'] = '/pay/checkout'
-        else:
-            mm['next_url'] = 'pay/cc'
 

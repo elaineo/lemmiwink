@@ -1,7 +1,9 @@
 {% extends "base/app.html" %}
 {% block pagetitle %}<img src="/static/img/lemmiwink.png" alt="Logo">{% endblock %}
 {% block rightbtn %}
-<span style='float:right;color:#fff'>Checkout</span>
+  {% if cart %}
+  <a style="float: right; position:relative; color:#fff;margin:10px;" class=" ui-link" href="{{chckout_url}}" data-inline="true">Checkout</a>
+  {% endif %}
 {% endblock %}
 {% block content %}
     <div id="homepage_content" data-role="content">
@@ -115,6 +117,9 @@ $(document).ready(function() {
     updateCart('dec', key, qty);
   });
   });
+$('span#checkoutBtn').click(function() {
+    $.mobile.changePage('/cart/checkout?cart=1');
+});
 function updateTotal() {
     var subTotal = 0;
     var total = 0;
