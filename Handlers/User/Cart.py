@@ -17,10 +17,6 @@ class CartHandler(BaseHandler):
             logging.info(c)
             if c and len(c['cart_items'])>0:
                 self.params['cart'] = c
-                if self.user_prefs.cust_id:
-                    self.params['chckout_url'] = '/pay/checkout'
-                else:
-                    self.params['chckout_url'] = '/pay/cc?cart=1'
             self.render('cart.html', **self.params)
 
     def post(self, action=None):
@@ -30,6 +26,8 @@ class CartHandler(BaseHandler):
             self.__update()
         elif action=='promo':
             self.__promo()
+        elif action=='checkout':
+            self.__checkout()
 
     def __update(self):
         self.response.headers['Content-Type'] = "application/json"
@@ -87,6 +85,29 @@ class CartHandler(BaseHandler):
             cart.put()
         else:
             mm['status'] = 'Invalid code.'
+        self.write(json.dumps(mm))
+        return
+
+    def __checkout(self):
+        self.response.headers['Content-Type'] = "application/json"
+        data = json.loads(self.request.body)
+        logging.info(data)
+        mm={'error':None}
+        cart = Cart.by_key(self.user_prefs.key)
+        sync = Cart(code=cart.code, promo=cart.promo)
+        for d in data:
+            key = d.get('key')
+            qty = d.get('qty')
+            if key and qty:
+                item = CartItem(quantity=parse_unit(qty), item=ndb.Key(urlsafe=key))
+                sync.cart_item.append(item)
+        cart = sync
+        cart.put()
+        mm['status'] = 'ok'
+        if self.user_prefs.cust_id:
+            mm['next_url'] = '/pay/checkout'
+        else:
+            mm['next_url'] = '/pay/cc?cart=1'
         self.write(json.dumps(mm))
         return
 

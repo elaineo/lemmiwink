@@ -2,7 +2,7 @@
 {% block pagetitle %}<img src="/static/img/lemmiwink.png" alt="Logo">{% endblock %}
 {% block rightbtn %}
   {% if cart %}
-  <a style="float: right; position:relative; color:#fff;margin:10px;" class=" ui-link" href="{{chckout_url}}" data-inline="true">Checkout</a>
+  <a style="float: right; position:relative; color:#fff;margin:10px;" class=" ui-link"  data-inline="true" id='checkoutBtn'>Checkout</a>
   {% endif %}
 {% endblock %}
 {% block content %}
@@ -117,8 +117,30 @@ $(document).ready(function() {
     updateCart('dec', key, qty);
   });
   });
-$('span#checkoutBtn').click(function() {
-    $.mobile.changePage('/cart/checkout?cart=1');
+$('#checkoutBtn').click(function() {
+  $(this).prop('disabled', true);
+  //sync cart
+  var cart = [];
+  $('ul#cartItems').find('.itemOrder').each(function(){
+      var qty = $(this).find('.itemQty').html();
+      var key = $(this).parent().attr('data-key');
+      var item = {'key':key, 'qty':qty};
+      cart.push(item);
+  })
+  $.ajax({
+    type: "POST",
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    url: "/cart/checkout",
+    data: JSON.stringify(cart),
+    success: function(response) {
+      console.log(JSON.stringify(response));
+      if (response.status=='ok')
+        $.mobile.changePage(response.next_url);
+      else
+        $(this).prop('disabled', false);
+    }
+  });
 });
 function updateTotal() {
     var subTotal = 0;

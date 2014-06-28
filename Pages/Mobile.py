@@ -28,8 +28,6 @@ class MobilePage(BaseHandler):
         elif action=='catalog':
             self.params['catalog'] = Category.dump_cat()
             self.render('catalog.html', **self.params)
-        elif action=='template':
-            self.render('template.html', **self.params)
 
     def post(self, action=None):
         if not self.user_prefs:

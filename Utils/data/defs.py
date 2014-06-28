@@ -2,3 +2,5 @@
 stripe_key = "sk_test_82QQbAUIRKZ7aCldRdS6ZpmJ"
 
 domain = 'http://golemmiwink.appspot.com'
+
+default_shipping = 5.00
