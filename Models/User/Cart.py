@@ -22,7 +22,7 @@ class Cart(ndb.Model):
             q = i.item.get().to_dict()
             q['qty'] = i.quantity
             items.append(q)
-        p = { 'items' : items,
+        p = { 'cart_items' : items,
                'code' : self.code,
                'promo' : '%.2f' % self.promo}
         return p
@@ -30,20 +30,23 @@ class Cart(ndb.Model):
     # get index of cart item by key
     def item_idx(self, key):
         q = [i for i, j in enumerate(self.cart_item) if j.item == key]
-        return q[0]
+        if len(q) > 0:
+            return q[0]
+        else:
+            return -1
 
     @classmethod
     def by_userid(cls, userid):
     	key = ndb.Key('UserAccounts', str(userid))
-        return cls.query(ancestor=key)
+        return cls.query(ancestor=key).get()
 
     @classmethod
     def by_key(cls, key):
-        return cls.query(ancestor=key)
+        return cls.query(ancestor=key).get()
 
     @classmethod
     def dump_cart(cls, key):
-        c = cls.by_key(key).get()
+        c = cls.by_key(key)
         if c:
             return c.to_dict()
         else:

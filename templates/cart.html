@@ -11,7 +11,7 @@
       {% if cart %}
       <div>
         <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" id='cartItems'>
-            {% for c in cart.items %}
+            {% for c in cart.cart_items %}
             <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-theme="c" class="ui-btn ui-li ui-li-has-thumb ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text" style='display:inline-block'>
                 <img src="{{c.imglink}}" class="ui-li-thumb">
                 <h2 class="ui-li-heading">{{c.name}}</h2>

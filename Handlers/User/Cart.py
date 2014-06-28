@@ -14,11 +14,14 @@ class CartHandler(BaseHandler):
         if action=='view':
             # get user's cart items
             c = Cart.dump_cart(self.user_prefs.key)
-            if c and len(c.items)>0:
+            logging.info(c)
+            if c and len(c['cart_items'])>0:
                 self.params['cart'] = c
             self.render('cart.html', **self.params)
 
     def post(self, action=None):
+        if not self.user_prefs:
+            self.redirect("/signup")
         if action=='update':
             self.__update()
         elif action=='promo':
@@ -38,15 +41,26 @@ class CartHandler(BaseHandler):
             self.write(json.dumps(mm))
             return
         key = ndb.Key(urlsafe=datakey)
-        if action=='inc' or action=='dec':
-            i = cart.item_idx(key)
-            cart.cart_item[i].quantity = qty
-        elif action=='rem':
-            i = cart.item_idx(key)
-            cart.cart_item.pop(i)
+        # is it already there?
+        i = cart.item_idx(key)
+        if i>=0:
+            ci = cart.cart_item[i]
+        else:
+            ci = None
+            mm['status'] = 'Missing Item'
+        if action=='inc' or action=='dec' and ci:
+            ci.quantity = qty
+            mm['status'] = 'ok'
+        elif action=='rem' and ci:
+            ci.pop(i)
+            mm['status'] = 'ok'
         elif action=='add':
-            c = CartItem(item=key, quantity=qty)
-            cart.cart_item.append(c)
+            if ci:
+                ci.quantity = ci.quantity + 1
+            else:
+                c = CartItem(item=key, quantity=qty)
+                cart.cart_item.append(c)
+            mm['status'] = 'ok'
         cart.put()
         self.write(json.dumps(mm))
         return

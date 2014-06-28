@@ -11,8 +11,8 @@
     {{ name }}
 </div>
 <div style="text-align: center;">
-	<a href="/m/catalog" data-corners="false" data-role="button" data-mini="true" data-icon="arrow-l" data-iconpos="left" data-inline="true">Back to Menu</a>
-	<a href="/m/cart" data-corners="false" data-role="button" data-mini="true" data-icon="arrow-r" data-iconpos="right" data-inline="true">Get it Now</a>
+	<a href='/m/catalog'><button id='back_btn' data-corners="false" data-role="button" data-mini="true" data-icon="arrow-l" data-iconpos="left" data-inline="true">Back to Menu</button></a>
+	<button id='add2Cart' data-corners="false" data-role="button" data-mini="true"  data-inline="true">Get it Now</button>
 </div>
 
 <div data-role="content">
@@ -68,4 +68,28 @@
 
 	</div>
 </div><!-- /content -->
+
+<script>
+$(document).ready(function() {
+  $('#add2Cart').click(function() {
+  	$(this).prop('disabled', true);
+	  var data = {'action':'add', 'key': '{{key}}', 'qty': 1};
+	  $.ajax({
+	    type: "POST",
+	    dataType: "json",
+	    contentType: "application/json; charset=utf-8",
+	    url: "/cart/update",
+	    data: JSON.stringify(data),
+	    success: function(response) {
+	      console.log(JSON.stringify(response));
+	      //doesn't really matter, continue
+	    },
+	    failure: function(response) {
+      	  console.log(JSON.stringify(response));
+      	  $(this).prop('disabled', false);
+	    }
+	  });
+  });
+});
+</script>
 {% endblock %}
