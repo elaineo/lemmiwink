@@ -1,15 +1,15 @@
 from google.appengine.ext import ndb
-from Models.Money.Transaction import *
+from Models.User.Cart import Cart
 import logging
 import json
 
 # Models #
 ##########
 
-#remnant from barnacle, not using this right now.
 class UserStats(ndb.Model):
-    referral = ndb.StringProperty()
-    code = ndb.StringProperty()
+    refcode = ndb.StringProperty()
+    referrals = ndb.KeyProperty(repeated=True)  #users that they referred
+    #remnant from Barnacle, not using this right now
     ip_addr = ndb.StringProperty(repeated=True)
     locations = ndb.StringProperty(repeated=True)
 
@@ -25,10 +25,15 @@ class UserAccounts(ndb.Model):
     fullname = ndb.StringProperty()
     cardimg = ndb.BlobKeyProperty()  # Recommendation ID image
     cardid = ndb.IntegerProperty() # Recommendation ID number
-    promocode = ndb.ComputedProperty(lambda self: str(self.key.id())[-4:])
-    referrals = ndb.KeyProperty(repeated=True)
     last_active = ndb.DateTimeProperty(auto_now=True)
     created = ndb.DateTimeProperty(auto_now_add=True)
+
+    def init(self):
+        # create cart on acct creation
+        Cart(parent=self.key).put()
+        UserStats(parent=self.key, refcode=str(self.key.id())[-4:]).put()
+        return
+
 
     @classmethod
     def by_email(cls, email):
@@ -41,7 +46,9 @@ class UserAccounts(ndb.Model):
 
     @classmethod
     def by_code(cls, code):
-        return cls.query(cls.promocode == code).get()
+        u = UserStats.query(UserStats.refcode == code)
+        if u:
+            return u.key.parent()
 
     def user_id(self):
         return self.key.id()

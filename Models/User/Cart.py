@@ -1,5 +1,4 @@
 from google.appengine.ext import ndb
-from Models.User.Account import UserAccounts
 import logging
 import json
 
