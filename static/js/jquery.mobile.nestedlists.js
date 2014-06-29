@@ -22,7 +22,7 @@
         _attachBindings: function() {
             this._on({
                 "click": "_handleSubpageClick"
-            });
+            })
             this._on( "body", {
                 "pagechange": function(){
                     if ( this.opening === true ) {
@@ -36,17 +36,24 @@
             });
         },
         _handleSubpageClick: function( event ) {
-            if( $(event.target).closest( "li" ).children( "ul" ).length == 0 ) {
+            //did we click on the text?
+            var catfish = event.target;
+            var loc = $(catfish).attr('data-loc');
+            while (loc=='child') {
+                catfish = catfish.parentElement;
+                loc = $(catfish).attr('data-loc');
+            }
+            if( $(catfish).closest( "li" ).children( "ul" ).length == 0 ) {
                 return;
             }
             this.opening = true;
             this.newPage = $( this.options.page ).uniqueId();
-            this.nestedList  = $( event.target ).children( "ul" )
+            this.nestedList  = $( catfish ).children( "ul" )
                 .clone().attr( "data-" + $.mobile.ns + "role", "listview" )
                 .css( "display", "block" );
             this.pageName = (
-                $( event.target.childNodes[0] ).text().replace(/^\s+|\s+$/g, '').length > 0 )?
-                $( event.target.childNodes[0] ).text() : $( event.target.childNodes[1] ).text();
+                $( catfish.childNodes[0] ).text().replace(/^\s+|\s+$/g, '').length > 0 )?
+                $( catfish.childNodes[0] ).text() : $( catfish.childNodes[1] ).text();
             this.pageID = this.newPage.attr( "id" );
 
             // Build new page

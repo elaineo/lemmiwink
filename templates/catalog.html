@@ -17,11 +17,12 @@
 
 		<ul data-role="listview"  class="ui-listview ui-listview-inset">
 		{% for c in catalog %}
-			<li data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-li ui-li-has-thumb ui-btn-up-c">
-				<div class="ui-btn-inner ui-li">
-					<div class="ui-btn-text" style='display:inline;float:left'>
-					  <img src="{{c.imglink}}" class="ui-li-thumb">{{c.name}}
-					  <p class="ui-li-desc">{{c.description}}</p>
+			<li data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-li ui-li-has-thumb ui-btn-up-c" data-loc='content'>
+				<div class="ui-btn-inner ui-li" data-loc='child'>
+					<div class="ui-btn-text" data-loc='child' style='display:inline;float:left;'>
+					  <img src="{{c.imglink}}" class="ui-li-thumb">
+            <span class='ui-li-name' data-loc='child'>{{c.name}}</span>
+					  <p class="ui-li-desc" data-loc='child'>{{c.description}}</p>
 					</div>
 				</div>
                 <ul>
