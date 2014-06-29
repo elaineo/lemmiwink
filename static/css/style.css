@@ -241,6 +241,14 @@ body a:visited  {
     font-size:13px;
     text-transform: uppercase;
 }
+.page-head {
+    display: inline-block;
+    padding: 10px;
+	width: 100%;
+    color: #999;
+    font-size:13px;
+    text-transform: uppercase;
+}
 .page-tagline img{
 	height: auto;
 	max-width: 100%;

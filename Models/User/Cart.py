@@ -1,4 +1,5 @@
 from google.appengine.ext import ndb
+from Utils.data.defs import default_shipping
 import logging
 import json
 
@@ -15,6 +16,15 @@ class Cart(ndb.Model):
     code = ndb.StringProperty()
     promo = ndb.FloatProperty(default=0.00)    #Promo code
     updated = ndb.DateTimeProperty(auto_now=True)
+
+    def total(self):
+        tot = 0
+        for c in self.cart_item:
+            item = c.item.get()
+            tot += item.price * c.quantity
+        tot -= self.promo
+        tot += default_shipping
+        return tot
 
     def to_dict(self):
         items = []

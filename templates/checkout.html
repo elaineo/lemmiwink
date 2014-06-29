@@ -1,0 +1,73 @@
+{% extends "base/app.html" %}
+{% block pagetitle %}<img src="/static/img/lemmiwink.png" alt="Logo">{% endblock %}
+{% block rightbtn %}
+
+{% endblock %}
+{% block content %}
+
+<div id="homepage_content" data-role="content">
+  <div class="page-subtitle">
+    Checkout
+  </div>
+  <div class="ui-body ui-body-a">
+    <span class='page-head'>Order Total:${{total}} </span>
+  </div>
+  <div class="ui-body ui-body-c page-head">
+    Delivery Address
+  </div>
+  <div class="ui-body ui-body-a">
+    <p>{{customer.name}}</p>
+    {% if customer.addr %}
+      {{customer.addr.street}} {{customer.addr.apt}}<br>
+      {{customer.addr.city}} {{customer.addr.state}} {{customer.addr.zip}}
+    {% endif %}
+      <span class='page-head'>{{customer.tel}}</span>
+  </div>
+  <div class="ui-body ui-body-c page-head">
+    Billing Information
+  </div>
+  <div class="ui-body ui-body-a">
+    Credit Card <span style='float:right'>xxxx xxxx xxxx {{cc}}</span>
+  </div>
+  <div class="ui-body ui-body-c page-head">
+    Driver Instructions
+  </div>
+    <form enctype="multipart/form-data" method="post" id="checkout_form">
+    <textarea cols="40" rows="2" name="instr" id="instr"></textarea>
+    <input type='hidden' id='total' name='total' value='{{total}}'>
+    <button class='ui-mini ui-btn' id='order_btn'>Order</button>
+  </form>
+
+</div><!-- /page -->
+
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+  $('#order_btn').click( function(e) {
+    e.preventDefault();
+    $('#order_btn').button().button('disable');
+    var instr = $('#instr').val();
+    var total = $('#total').val();
+    data = {'instr': instr, 'total': total};
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      url: "/pay/checkout",
+      data: JSON.stringify(data),
+      success: function(response) {
+        console.log(JSON.stringify(response));
+        if (response.status == "ok") {
+            $.mobile.changePage('/deliv/ok');
+        } else {
+           alert(response.error);
+        }
+        $('#order_btn').removeAttr('disabled');
+      }
+    });
+  });
+});
+
+</script>
+{% endblock %}
+
