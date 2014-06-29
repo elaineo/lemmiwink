@@ -13,6 +13,32 @@ body {
     position: relative;
     margin: 0;
 }
+.info {
+  text-align:center;
+  color: #eee;
+
+}
+.footer {
+    border-top: 1px solid #fff;
+    position: absolute;
+    text-transform: uppercase;
+    text-align:center;
+    font-size: 12px;
+    left:0; bottom:0;
+    color: #eee;
+    width: 100%
+}
+.foot-contact {
+  background:#eee;
+  height:50px;
+  color: #999;
+}
+.contact-box {
+  float:left;
+  width:25%;
+  height:100%;
+  border-right:1px solid #2699ae;
+}
 .subtitle {
   padding: 10px;
   color: #eee;

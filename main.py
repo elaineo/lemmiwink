@@ -12,8 +12,9 @@ from Pages.Mobile import *
 
 # Catalog
 from Handlers.Product.Listing import CatalogHandler
-# Payment
+# Payment and Orders
 from Handlers.User.Payment import PaymentHandler
+from Handlers.Delivery import DeliveryHandler
 
 #Admin
 from Utils.Admin import AdminHandler
@@ -23,14 +24,18 @@ sys.path.append('/Pages')
 
 app = webapp2.WSGIApplication([('/', HomePage),
 	webapp2.Route('/web', LargePage),
+  # account info
   webapp2.Route('/account/<action>', AccountHandler),
-	webapp2.Route('/cart/<action>', CartHandler),
 	webapp2.Route('/address/<action>', AddressHandler),
   # product pages
   webapp2.Route('/cat', CatalogHandler),
   webapp2.Route('/cat/<key>', CatalogHandler),
+  # checkout
+  webapp2.Route('/cart/<action>', CartHandler),
   # payment
   webapp2.Route('/pay/<action>', PaymentHandler),
+  # delivery
+  webapp2.Route('/deliv/<key>', DeliveryHandler),
   # Image upload handlers
    webapp2.Route('/imgblob/<action>', handler=ImageBlobHandler),
    webapp2.Route('/imgserv/<action>', handler=ImageServeHandler),

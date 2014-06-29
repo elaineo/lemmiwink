@@ -93,6 +93,7 @@ class PaymentHandler(BaseHandler):
         notify_order(t)
 
         mm = {'status':'ok'}
+        mm['next_url'] = '/deliv/' + t.key.urlsafe()
         self.write(json.dumps(mm))
         return
 

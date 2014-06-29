@@ -58,7 +58,7 @@ $(document).ready(function() {
       success: function(response) {
         console.log(JSON.stringify(response));
         if (response.status == "ok") {
-            $.mobile.changePage('/deliv/ok');
+            $.mobile.changePage(response.next_url);
         } else {
            alert(response.error);
         }
