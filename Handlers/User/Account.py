@@ -41,7 +41,7 @@ class AccountHandler(BaseHandler):
         password = data.get('password')
         email = data.get('email')
         mm={'error':None}
-        mm['next_url'] = '/m/fillprofile'
+        mm['next_url'] = '/m/profile'
         if not valid_email(email):
             mm['error']="That's not a valid email address."
         else:
@@ -84,7 +84,7 @@ class AccountHandler(BaseHandler):
             mm['status'] = 'ok'
             # check to see where the user left off in account process
             if not u.addr_deliv:
-                mm['next_url'] = '/m/fillprofile'
+                mm['next_url'] = '/m/profile'
             elif not u.cardimg:
                 mm['next_url'] = '/m/photoid'
             elif u.addr_deliv and u.cardimg:

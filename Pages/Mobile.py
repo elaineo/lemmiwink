@@ -14,11 +14,12 @@ class MobilePage(BaseHandler):
             self.redirect('/account/signin')
         if action=='payment':
             self.render('payment.html', **self.params)
-        elif action=='fillprofile':
-            self.render('fillprofile.html', **self.params)
         elif action=='profile':
-            self.params.update(self.user_prefs.to_dict(True))
-            self.render('profile.html', **self.params)
+            if self.user_prefs.addr_deliv:
+                self.params.update(self.user_prefs.to_dict(True))
+                self.render('profile.html', **self.params)
+            else:
+                self.render('fillprofile.html', **self.params)
         elif action=='support':
             self.render('support.html', **self.params)
         elif action=='about':
