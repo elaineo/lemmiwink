@@ -37,14 +37,9 @@
 
 <script type="text/javascript" charset="utf-8">
 function initialize() {
-  $('#addr_btn').button('enable');
+  $('#addr_btn').button().button('enable');
 }
 $(document).ready(function() {
-  $('#menu_btn').click(function(e) {
-    e.preventDefault();
-    //do other stuff when a click happens
-    return false;
-  });
   $("input#city").hide(); /* Show the fields */
   $("input#state").hide();
   $('input#zip').keypress(function(e) {
@@ -129,7 +124,7 @@ function geoFuncCallback(data) {
       } else {
          alert(response.error);
          console.log($('#addr_btn'));
-        $('#addr_btn').button('enable');
+        $('#addr_btn').button().button('enable');
       }
 
     }

@@ -23,11 +23,6 @@
 <script type="text/javascript" src="/static/js/plupload/plupload.full.min.js"></script>
 <script>
 $(document).ready(function(){
-  $('#menu_btn').click(function(e) {
-    e.preventDefault();
-    //do other stuff when a click happens
-    return false;
-  });
   $('#cart_btn').hide();
   var upload;
   $('input#save_btn').button().button('disable');
@@ -76,7 +71,7 @@ $(document).ready(function(){
   uploader.bind('FileUploaded', function(up, file, response) {
     console.log(response.response);
     var r = jQuery.parseJSON( response.response );
-    $('#save_btn').button('enable');
+    $('#save_btn').button().button('enable');
     $("#smallImage").attr("src", r.url);
     // save rosponse url
     $('input#imgkey').val(r.key);

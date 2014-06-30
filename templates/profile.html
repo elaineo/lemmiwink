@@ -41,7 +41,7 @@
     </div><!-- /page -->
 <script type="text/javascript" charset="utf-8">
 function initialize() {
-  $('#addr_btn').button('enable');
+  $('#addr_btn').button().button('enable');
 }
 $(document).ready(function() {
   $('#cart_btn').hide();
@@ -128,7 +128,7 @@ function geoFuncCallback(data) {
       } else {
          alert(response.error);
       }
-      $('#addr_btn').button('enable');
+      $('#addr_btn').button().button('enable');
     }
   });
 }
