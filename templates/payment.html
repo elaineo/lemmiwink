@@ -10,7 +10,7 @@
 </div>
 <div class="container">
 {% if has_cc == True %}
-<p>Saved Account:<br> xxxxxxxxxxxx{{cc}}</p>
+<p>Saved Account:<br> xxxx xxxx xxxx {{cc}}</p>
 {% endif %}
 
 <form action="" method="POST" id="payment-form">
@@ -81,7 +81,7 @@
     var token = response.id;
     var cc = response.card.last4;
 
-    var data = {'stripeToken:' :token, 'cc':cc};
+    var data = {'stripeToken' :token, 'cc':cc};
     $.ajax({
       type: "POST",
       dataType: "json",

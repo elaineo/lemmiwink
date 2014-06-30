@@ -37,7 +37,7 @@
 
 <script type="text/javascript" charset="utf-8">
 function initialize() {
-  $('#addr_btn').removeAttr('disabled');
+  $('#addr_btn').button('enable');
 }
 $(document).ready(function() {
   $('#menu_btn').click(function(e) {
@@ -127,9 +127,11 @@ function geoFuncCallback(data) {
           window.location='/m/photoid';
           //$.mobile.changePage('/m/photoid');
       } else {
-         alert('Error');
+         alert(response.error);
+         console.log($('#addr_btn'));
+        $('#addr_btn').button('enable');
       }
-      $('#addr_btn').removeAttr('disabled');
+
     }
   });
 }

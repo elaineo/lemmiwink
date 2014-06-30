@@ -10,7 +10,7 @@
     Checkout
   </div>
   <div class="ui-body ui-body-a">
-    <span class='page-head'>Order Total:${{total}} </span>
+    <span class='page-head'>Order Total:  ${{total}} </span>
   </div>
   <div class="ui-body ui-body-c page-head">
     Delivery Address
@@ -62,7 +62,7 @@ $(document).ready(function() {
         } else {
            alert(response.error);
         }
-        $('#order_btn').removeAttr('disabled');
+        $('#order_btn').button('enable');
       }
     });
   });
