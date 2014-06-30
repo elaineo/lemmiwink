@@ -1,6 +1,7 @@
 from google.appengine.ext import ndb
 from Handlers.BaseHandler import *
 from Models.User.Account import *
+from Models.User.Cart import *
 import logging
 import json
 
@@ -17,3 +18,8 @@ class AdminHandler(BaseHandler):
                 self.write('user validated.')
             except:
                 self.write('user not found.')
+        if action=='cart':
+            users = UserAccounts.query()
+            for u in users:
+                UserStats(parent=u.key, refcode=str(u.key.id())[-4:]).put()
+            self.write('everybuddy has a stat now.')

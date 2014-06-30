@@ -47,18 +47,14 @@ class AccountHandler(BaseHandler):
         else:
             mm['email'] = email
         u = UserAccounts.by_email(email)
-        if not valid_pw(password):
-            mm['error'] = "That wasn't a valid password."
-        elif u:
+        if u:
             # already have account, sign them in
             self.__signin(u,password)
             return
+        # if not valid_pw(password):
+        #     mm['error'] = "That wasn't a valid password."
         if not newacct:
             mm['error']="Not an existing user."
-        if mm['error'] is not None:
-            mm['status'] = 'error'
-            self.write(json.dumps(mm))
-            return
         else:
             u = UserAccounts(email = email, pwhash = make_pw_hash(email, password))
             u.put()
@@ -69,9 +65,10 @@ class AccountHandler(BaseHandler):
             logging.info(u.user_id())
             self.login(u.user_id())
             self.set_current_user()
-            # return a cookie for local storage
-            self.write(json.dumps(mm))
-            return
+        if mm['error'] is not None:
+            mm['status'] = 'error'
+        self.write(json.dumps(mm))
+        return
 
     def send_user_info(self, email):
         htmlbody =  self.render_str('email/welcome_user.html', **self.params)
@@ -85,10 +82,13 @@ class AccountHandler(BaseHandler):
             self.login(u.user_id())
             self.set_current_user()
             mm['status'] = 'ok'
-            if u.cardimg:
-                mm['next_url'] = 'm/home'
-            else:
-                mm['next_url'] = 'm/fillprofile'
+            # check to see where the user left off in account process
+            if not u.addr_deliv:
+                mm['next_url'] = '/m/fillprofile'
+            elif not u.cardimg:
+                mm['next_url'] = '/m/photoid'
+            elif u.addr_deliv and u.cardimg:
+                mm['next_url'] = '/'
         else:
             mm['status'] = 'error'
             mm['error'] = "Invalid Login."
