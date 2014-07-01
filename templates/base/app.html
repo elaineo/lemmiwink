@@ -83,11 +83,6 @@
   <script>
   addToHomescreen();
   </script>
-<script>
-    window.butler=window.butler||[];butler.load=function(e,t){window._bid=e;if(t){window._bem=t.email}var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https:":"http:")+"//www.hellobutler.com/javascripts/b.min.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(n,r);var i=function(e){return function(){butler.push([e].concat(Array.prototype.slice.call(arguments,0)))}},s=["identify","track"];for(var o=0;o<s.length;o++)butler[s[o]]=i(s[o]);if(t){butler.identify(t)}}
-    butler.load("bU4rCpeqSV");
-</script>
-
 </head>
 <body>
  <div data-role="page" id="home">
@@ -119,5 +114,17 @@
       <div id='mainContent'>{% block content %}{% endblock %}</div>
 
     </div><!-- /page -->
+<script type="text/javascript">
+$(document).on('pagebeforechange', function(e, data){
+    var to = data.toPage;
+    var pageLen = data.toPage.length;
+    if (pageLen > 7) {
+      var nextPage = data.toPage.substring(pageLen-7);
+      console.log(nextPage);
+      if (nextPage=='profile')
+        $(location).attr('href',data.toPage);
+    }
+});
+</script>
   </body>
 </html>

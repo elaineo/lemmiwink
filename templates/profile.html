@@ -1,10 +1,14 @@
 {% extends "base/app.html" %}
 {% block pagetitle %}<img src="/static/img/lemmiwink.png" alt="Logo">{% endblock %}
 {% block rightbtn %}
-<a style="float: right;" class="header_button" href="/cart/view" data-inline="true" data-role="button" data-corners="false" data-theme="c" id='cart_btn'>
+<a style="float: right;" class="header_button" data-count='3' href="/cart/view" data-inline="true" data-role="button" data-corners="false" data-theme="c" id='cart_btn'>
     <img style="width: 100%; height: 100%;" src="/static/img/cart.png" alt="Share">
     <span class="btn-background share-btn-background"></span>
+    {% if cart_tot > 0 %}
+    <span class="counter-header highlight-red" style="color: #ffffff;">{{cart_tot}}</span>
+    {% endif %}
 </a>
+
 {% endblock %}
 {% block content %}
 
@@ -44,7 +48,6 @@ function initialize() {
   $('#addr_btn').button().button('enable');
 }
 $(document).ready(function() {
-  $('#cart_btn').hide();
   $("input#city").hide(); /* Show the fields */
   $("input#state").hide();
   $('input#zip').keypress(function(e) {

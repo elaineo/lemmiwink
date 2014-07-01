@@ -182,7 +182,6 @@ body a:visited  {
 	z-index: 0;
 }
 .counter-header {
-	border: 1px #ffffff solid;
 	border-radius: 20px;
 	display: inline-block;
 	line-height: 20px;

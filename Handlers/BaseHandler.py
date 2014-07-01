@@ -62,6 +62,7 @@ class BaseHandler(webapp2.RequestHandler):
             if up:
                 self.user_prefs = up
                 self.current_user_key = up.key
+                self.params['cart_tot'] = up.cart_total()
         # I forgot what this stuff was, don't care right now
         elif self.request.get('login_token'):
             user = UserAccounts.by_login_token(self.request.get('login_token'))

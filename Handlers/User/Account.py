@@ -82,6 +82,8 @@ class AccountHandler(BaseHandler):
             self.login(u.user_id())
             self.set_current_user()
             mm['status'] = 'ok'
+            logging.info('login')
+            logging.info(u)
             # check to see where the user left off in account process
             if not u.addr_deliv:
                 mm['next_url'] = '/m/profile'

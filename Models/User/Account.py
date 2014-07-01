@@ -72,6 +72,14 @@ class UserAccounts(ndb.Model):
     def code(self):
         return str(self.key.id())[-4:]
 
+    def cart_total(self):
+        c = Cart.query(ancestor=self.key).get()
+        if c:
+            return c.item_count()
+        else:
+            return 0
+
+
 class WebAccount(ndb.Model):
     email = ndb.StringProperty()
     location = ndb.StringProperty()

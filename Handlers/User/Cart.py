@@ -15,10 +15,9 @@ class CartHandler(BaseHandler):
         if action=='view':
             # get user's cart items
             c = Cart.dump_cart(self.user_prefs.key)
-            logging.info(c)
             if c and len(c['cart_items'])>0:
                 self.params['cart'] = c
-                self.params['shipping'] = '%.2f' % default_shipping
+            self.params['shipping'] = '%.2f' % default_shipping
             self.render('cart.html', **self.params)
 
     def post(self, action=None):

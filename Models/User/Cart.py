@@ -17,6 +17,12 @@ class Cart(ndb.Model):
     promo = ndb.FloatProperty(default=0.00)    #Promo code
     updated = ndb.DateTimeProperty(auto_now=True)
 
+    def item_count(self):
+        q = 0
+        for c in self.cart_item:
+            q = q+c.quantity
+        return q
+
     def total(self):
         tot = 0
         for c in self.cart_item:
