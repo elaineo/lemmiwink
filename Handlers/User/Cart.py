@@ -12,6 +12,7 @@ class CartHandler(BaseHandler):
     def get(self, action=None):
         if not self.user_prefs: # if user is not logged in, redirect
             self.redirect("/signup")
+            return
         if action=='view':
             # get user's cart items
             c = Cart.dump_cart(self.user_prefs.key)
@@ -64,7 +65,9 @@ class CartHandler(BaseHandler):
                 c = CartItem(item=key, quantity=qty)
                 cart.cart_item.append(c)
             mm['status'] = 'ok'
+        self.params['cart_tot'] = cart.item_count()
         cart.put()
+        mm['cart_head'] = self.render_str('base/cart_head.html', **self.params)
         self.write(json.dumps(mm))
         return
 

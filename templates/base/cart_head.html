@@ -1,0 +1,7 @@
+<a style="float: right;" class="header_button ui-link ui-btn ui-btn-c ui-btn-inline ui-shadow" href="/cart/view" data-inline="true" data-role="button" data-corners="false" data-theme="c" id="cart_btn" role="button">
+    <img style="width: 100%; height: 100%;" src="/static/img/cart.png" alt="Share">
+    <span class="btn-background share-btn-background"></span>
+    {% if cart_tot > 0 %}
+    <span class="counter-header highlight-red" style="color: #ffffff;">{{cart_tot}}</span>
+    {% endif %}
+</a>

@@ -1,13 +1,7 @@
 {% extends "base/app.html" %}
 {% block pagetitle %}<span class="page_title"><img src="/static/img/lemmiwink.png" alt="Logo"></span>{% endblock %}
 {% block rightbtn %}
-<a style="float: right;" class="header_button" href="/cart/view" data-inline="true" data-role="button" data-corners="false" data-theme="c" id='cart_btn'>
-    <img style="width: 100%; height: 100%;" src="/static/img/cart.png" alt="Share">
-    <span class="btn-background share-btn-background"></span>
-    {% if cart_tot > 0 %}
-    <span class="counter-header highlight-red" style="color: #ffffff;">{{cart_tot}}</span>
-    {% endif %}
-</a>
+{% include "base/cart_head.html" %}
 {% endblock %}
 {% block content %}
 <div class="page-subtitle">
@@ -85,6 +79,8 @@ $(document).ready(function() {
 	    data: JSON.stringify(data),
 	    success: function(response) {
 	      console.log(JSON.stringify(response));
+	      console.log($('.cart_head'));
+	      $('.cart_head').html(response.cart_head);
 	      //doesn't really matter, continue
 	    },
 	    failure: function(response) {
