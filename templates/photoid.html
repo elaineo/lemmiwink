@@ -105,7 +105,7 @@ $(document).ready(function(){
         success: function(response) {
           console.log(response);
           if (response.status == "ok") {
-            $.mobile.changePage('/');
+            $(location).attr('href', '/');
           }
         }
     });

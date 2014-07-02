@@ -35,7 +35,7 @@ class PaymentHandler(BaseHandler):
         if cart=='1':
             self.params['next_url'] = '/pay/checkout'
         else:
-            self.params['next_url'] = '/'
+            self.params['next_url'] = '/m/catalog'
         self.render('payment.html', **self.params)
 
     def __createcc(self):

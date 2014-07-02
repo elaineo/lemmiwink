@@ -89,8 +89,8 @@ class AccountHandler(BaseHandler):
                 mm['next_url'] = '/m/profile'
             elif not u.cardimg:
                 mm['next_url'] = '/m/photoid'
-            elif u.addr_deliv and u.cardimg:
-                mm['next_url'] = '/'
+            else:
+                mm['next_url'] = '/m/catalog'
         else:
             mm['status'] = 'error'
             mm['error'] = "Invalid Login."

@@ -89,7 +89,7 @@
 	<div data-role="panel" data-position="left" data-theme="b" data-display="push" id="left_panel">
 		<ul data-role="listview" data-inset="false" data-theme="b">
 			<li><div style="text-align: center;"><img src="/static/img/lemmiwink.png" alt="Logo"></div></li>
-			<li><a data-transition="slide" href="/"><i class="icon-home"></i> &nbsp; Home</a></li>
+			<li><a data-transition="slide" href='/m/catalog'><i class="icon-home"></i> &nbsp; Home</a></li>
             <li><a data-transition="slide" href="/pay/cc"><i class="icon-credit-card"></i> &nbsp; Payment</a></li>
             <!-- <li><a data-transition="slide" href="promo.html"><i class="icon-gift"></i> &nbsp; Promotions</a></li>-->
             <li><a data-transition="slide" href="/m/profile"><i class="icon-user"></i> &nbsp; Profile</a></li>
@@ -116,12 +116,11 @@
     </div><!-- /page -->
 <script type="text/javascript">
 $(document).on('pagebeforechange', function(e, data){
-    var to = data.toPage;
     var pageLen = data.toPage.length;
     if (pageLen > 7) {
       var nextPage = data.toPage.substring(pageLen-7);
       console.log(nextPage);
-      if (nextPage=='profile')
+      if ((nextPage=='profile') || (nextPage=='catalog'))
         $(location).attr('href',data.toPage);
     }
 });

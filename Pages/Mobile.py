@@ -12,6 +12,7 @@ class MobilePage(BaseHandler):
         logging.info(self.user_prefs)
         if not self.user_prefs:
             self.redirect('/account/signin')
+            return
         if action=='payment':
             self.render('payment.html', **self.params)
         elif action=='profile':
@@ -27,6 +28,8 @@ class MobilePage(BaseHandler):
         elif action=='photoid':
             self.render('photoid.html', **self.params)
         elif action=='catalog':
+            if not self.user_prefs.valid:
+                self.redirect('/')
             self.params['catalog'] = Category.dump_cat()
             self.render('catalog.html', **self.params)
 
