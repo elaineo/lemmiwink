@@ -9,6 +9,13 @@
   <div class="page-subtitle">
     Checkout
   </div>
+  {% if after_hours %}
+  <div class="ui-body ui-body-b page-head">
+    <div style='width:90%'>
+Lemmiwink is not currently available.  <p>If you place your order now, we will dispatch a driver when our service comes online at 6 PM.</p>
+    </div>
+  </div>
+  {% endif %}
   <div class="ui-body ui-body-a">
     <span class='page-head'>Order Total:  ${{total}} </span>
   </div>

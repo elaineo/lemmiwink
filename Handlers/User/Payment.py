@@ -3,7 +3,8 @@ from Handlers.BaseHandler import *
 from Models.User.Account import *
 from Models.User.Cart import *
 from Models.Money.Transaction import *
-from Utils.data.defs import stripe_key
+from Utils.data.defs import stripe_key, open_biz, close_biz
+import datetime
 import logging
 import json
 import stripe
@@ -103,6 +104,9 @@ class PaymentHandler(BaseHandler):
         self.params['customer'] = self.user_prefs.to_dict(True)
         logging.info(self.params['customer'])
         self.params['cc'] = self.user_prefs.cc
+        now = datetime.datetime.now().time()
+        if now < open_biz or now > close_biz:
+            self.params['after_hours'] = True
         self.render('checkout.html', **self.params)
 
 def notify_order(trans):
