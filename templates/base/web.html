@@ -32,7 +32,7 @@ return check; }
 console.log(window.mobilecheck());
 m = window.mobilecheck();
 if (m)
-  window.location.href = '/account/signup';
+  window.location.href = '/splash';
   </script>
 
 <script>
@@ -54,7 +54,7 @@ function validate_fields() {
     return false;
 }
 jQuery(document).ready(function () {
-  window.open('/account/signup', "popupWindow", "width=640,height=960,scrollbars=no");
+  window.open('/splash', "popupWindow", "width=640,height=960,scrollbars=no");
   $('#submit_btn').on('click', function() {
      var valid = validate_fields();
       if (!valid)
@@ -136,7 +136,7 @@ jQuery(document).ready(function () {
 <div class="nine columns fixed-center">
 <div class="half-offset-left">
 <h1><div data-component="text" data-name="title" data-text-type="heading" class="text-component"><div class="content content2" data-bind="visible: !(title.isState(&#39;editor&#39;) || !title.hasContent()), htmlValue: title.value, style: (window.edit_page.data.headingFont() != &#39;&#39;) ? {fontFamily: window.edit_page.data.headingFont } : {fontFamily: &#39;inherit&#39; }" style="font-family: Lato; "><div>On-Demand Delivery</div></div></div></h1>
-<div class="p" data-bind="visible: text.hasContentOrIsEditMode() "><div data-component="text" data-name="text" data-text-type="body" class="text-component"><div class="content content2" data-bind="visible: !(text.isState(&#39;editor&#39;) || !text.hasContent()), htmlValue: text.value, style: (window.edit_page.data.bodyFont() != &#39;&#39;) ? {fontFamily: window.edit_page.data.bodyFont } : {fontFamily: &#39;inherit&#39; }" style="font-family: inherit; "><div>No matter where you are or what you're doing, Lemmiwink is always at your fingertips. We deliver within 30 minutes in the city of San Francisco. The service is available to registered customers.</div>
+<div class="p" data-bind="visible: text.hasContentOrIsEditMode() "><div data-component="text" data-name="text" data-text-type="body" class="text-component"><div class="content content2" data-bind="visible: !(text.isState(&#39;editor&#39;) || !text.hasContent()), htmlValue: text.value, style: (window.edit_page.data.bodyFont() != &#39;&#39;) ? {fontFamily: window.edit_page.data.bodyFont } : {fontFamily: &#39;inherit&#39; }" style="font-family: inherit; "><div>Millions of Americans turn to cannabis for its therapeutic benefits. No matter where you are or what you're doing, Lemmiwink is always at your fingertips. We deliver in 20 to 40 minutes in the city of San Francisco. The service is available to registered customers.</div>
 <div>&nbsp;</div>
 <div>Want it now? Visit <a href="http://www.lemmiwink.com/">lemmiwink.com</a> on a mobile device.</div></div></div></div>
 <br>
@@ -172,7 +172,10 @@ jQuery(document).ready(function () {
 <div class="clearfix" data-bind="visible: subtitle.hasContentOrIsEditMode() || title.hasContentOrIsEditMode()">
 <div class="sixteen columns">
 <h1 data-bind="visible: title.hasContentOrIsEditMode()"><div data-component="text" data-name="title" data-text-type="heading" class="text-component"><div class="content content2" data-bind="visible: !(title.isState(&#39;editor&#39;) || !title.hasContent()), htmlValue: title.value, style: (window.edit_page.data.headingFont() != &#39;&#39;) ? {fontFamily: window.edit_page.data.headingFont } : {fontFamily: &#39;inherit&#39; }" style="font-family: Lato; "><div>Now Serving San Francisco</div></div></div></h1>
-<div class="p" data-bind="visible: subtitle.hasContentOrIsEditMode()"><div data-component="text" data-name="subtitle" data-text-type="body" class="text-component"><div class="content content2" data-bind="visible: !(subtitle.isState(&#39;editor&#39;) || !subtitle.hasContent()), htmlValue: subtitle.value, style: (window.edit_page.data.bodyFont() != &#39;&#39;) ? {fontFamily: window.edit_page.data.bodyFont } : {fontFamily: &#39;inherit&#39; }" style="font-family: inherit; "><div>Mission, SOMA, Downtown, Portrero Hill, Nob Hill, Financial District, Noe Valley, Castro, Bernal Heights</div></div></div></div>
+<div class="p" data-bind="visible: subtitle.hasContentOrIsEditMode()"><div data-component="text" data-name="subtitle" data-text-type="body" class="text-component"><div class="content content2" data-bind="visible: !(subtitle.isState(&#39;editor&#39;) || !subtitle.hasContent()), htmlValue: subtitle.value, style: (window.edit_page.data.bodyFont() != &#39;&#39;) ? {fontFamily: window.edit_page.data.bodyFont } : {fontFamily: &#39;inherit&#39; }" style="font-family: inherit; ">
+<p><img src='/static/img/webmap.png' style='max-width:600px'></p>
+<p>Mission, SOMA, Downtown, Portrero Hill, Nob Hill, Financial District, Noe Valley, Castro, Bernal Heights</p>
+</div></div></div>
 <br>
 <br>
 </div>
@@ -200,8 +203,8 @@ jQuery(document).ready(function () {
 <div class="clearfix">
 <div class="sixteen columns">
 <h1><div data-component="text" data-name="title" data-text-type="heading" class="text-component"><div class="content content2" data-bind="visible: !(title.isState(&#39;editor&#39;) || !title.hasContent()), htmlValue: title.value, style: (window.edit_page.data.headingFont() != &#39;&#39;) ? {fontFamily: window.edit_page.data.headingFont } : {fontFamily: &#39;inherit&#39; }" style="font-family: Lato; "><div>We Deliver From the Best Sources</div></div></div></h1>
-<div class="p" data-bind="visible: subtitle.hasContentOrIsEditMode() "><div data-component="text" data-name="subtitle" data-text-type="body" class="text-component"><div class="content content2" data-bind="visible: !(subtitle.isState(&#39;editor&#39;) || !subtitle.hasContent()), htmlValue: subtitle.value, style: (window.edit_page.data.bodyFont() != &#39;&#39;) ? {fontFamily: window.edit_page.data.bodyFont } : {fontFamily: &#39;inherit&#39; }" style="font-family: inherit; "><div>We are always searching for new sources to bring our customers the best treats. Interested in becoming a vendor partner?</div>
-<div>Contact us today!</div></div></div></div>
+<div class="p" data-bind="visible: subtitle.hasContentOrIsEditMode() "><div data-component="text" data-name="subtitle" data-text-type="body" class="text-component"><div class="content content2" data-bind="visible: !(subtitle.isState(&#39;editor&#39;) || !subtitle.hasContent()), htmlValue: subtitle.value, style: (window.edit_page.data.bodyFont() != &#39;&#39;) ? {fontFamily: window.edit_page.data.bodyFont } : {fontFamily: &#39;inherit&#39; }" style="font-family: inherit; "><div>Lemmiwink is proud to deliver only the highest quality marijuana strains to a select group of connoisseurs. We are always searching for new sources to bring our customers the best treats.</div>
+<div>Interested in becoming a vendor partner? Contact us today!</div></div></div></div>
 <br>
 </div>
 </div>

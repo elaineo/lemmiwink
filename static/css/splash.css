@@ -108,7 +108,6 @@ button.primary { background-color: #3B5998; color: #fff;  }
 }
 #news_slider .owl-item .item img, .blog-post-slider .item img {
 	height: 100%;
-	width: 100%;
     overflow: hidden;
 }
 

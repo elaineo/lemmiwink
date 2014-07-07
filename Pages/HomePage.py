@@ -15,7 +15,13 @@ class HomePage(BaseHandler):
                 else:
                     self.redirect('/m/photoid')
         else:
-            self.redirect('/account/signup')
+            self.render('index.html')
+
+class SplashPage(BaseHandler):
+    """ Home page, first page shown """
+    def get(self):
+        self.render('index.html')
+
 
 class LargePage(BaseHandler):
     """ Home page, first page shown """

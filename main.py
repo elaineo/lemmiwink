@@ -24,6 +24,7 @@ sys.path.append('/Pages')
 
 app = webapp2.WSGIApplication([('/', HomePage),
 	webapp2.Route('/web', LargePage),
+  webapp2.Route('/splash', SplashPage),
   # account info
   webapp2.Route('/account/<action>', AccountHandler),
 	webapp2.Route('/address/<action>', AddressHandler),
