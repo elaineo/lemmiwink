@@ -4,6 +4,7 @@ from Models.User.Account import *
 from Models.User.Cart import *
 from Models.Money.Transaction import *
 from Utils.data.defs import stripe_key, open_biz, close_biz
+from Utils.EmailUtils import send_alert
 import datetime
 import logging
 import json

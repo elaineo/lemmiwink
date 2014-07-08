@@ -46,7 +46,7 @@ class UserAccounts(ndb.Model):
 
     @classmethod
     def by_code(cls, code):
-        u = UserStats.query(UserStats.refcode == code)
+        u = UserStats.query(UserStats.refcode == code).get()
         if u:
             return u.key.parent()
 
