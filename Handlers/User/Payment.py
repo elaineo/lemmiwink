@@ -87,7 +87,7 @@ class PaymentHandler(BaseHandler):
         )
         #record transaction
         cart = Cart.by_key(self.user_prefs.key)
-        t = Transaction(customer = u.key, cart = cart.key, amount = total)
+        t = Transaction(customer = u.key, cart = cart.key, amount = float(total))
         t.put()
 
         #notify self
