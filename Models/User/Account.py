@@ -1,14 +1,25 @@
 from google.appengine.ext import ndb
 from Models.User.Cart import Cart
+from Models.Money.Promo import PromoCode
 import logging
 import json
 
 # Models #
 ##########
 
+class UserCredit(ndb.Model):
+    """ Parent of UserCredit is UserAccount
+        This is the credit for referring a new customer.
+        The credit does not become valid until the new customer places the order
+    """
+    referral = ndb.KeyProperty()    #users that they referred
+    valid = ndb.BooleanProperty(default=False)  # Has the referral placed an order?
+    redeemed = ndb.BooleanProperty(default=False)
+    amount = ndb.FloatProperty(default=10.00)
+
+""" Think about deleting this """
 class UserStats(ndb.Model):
-    refcode = ndb.StringProperty()
-    referrals = ndb.KeyProperty(repeated=True)  #users that they referred
+    credits = ndb.StructuredProperty(UserCredit, repeated=True)
     #remnant from Barnacle, not using this right now
     ip_addr = ndb.StringProperty(repeated=True)
     locations = ndb.StringProperty(repeated=True)
@@ -28,10 +39,17 @@ class UserAccounts(ndb.Model):
     last_active = ndb.DateTimeProperty(auto_now=True)
     created = ndb.DateTimeProperty(auto_now_add=True)
 
-    def init(self):
+    def init(self, promo=None):
         # create cart on acct creation
-        Cart(parent=self.key).put()
-        UserStats(parent=self.key, refcode=str(self.key.id())[-4:]).put()
+        c = Cart(parent=self.key)
+        if promo:
+            c.populate(code=promo.key, promo=promo.amount)
+            # give credit to referrer
+            if promo.user:
+                UserCredit(referral=self.key, parent=promo.user, amount=promo.amount).put()
+        c.put()
+        PromoCode(user=self.key, code=str(self.key.id())[-4:], amount=10.00).put()
+        # UserStats(parent=self.key, refcode=str(self.key.id())[-4:]).put()
         return
 
 

@@ -103,7 +103,6 @@ class PaymentHandler(BaseHandler):
         cart = Cart.by_key(self.user_prefs.key)
         self.params['total'] = '%.2f' % cart.total()
         self.params['customer'] = self.user_prefs.to_dict(True)
-        logging.info(self.params['customer'])
         self.params['cc'] = self.user_prefs.cc
         now = datetime.datetime.now().time()
         if now < open_biz or now > close_biz:

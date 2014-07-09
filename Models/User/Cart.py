@@ -13,8 +13,8 @@ class CartItem(ndb.Model):
 
 class Cart(ndb.Model):
     cart_item = ndb.StructuredProperty(CartItem, repeated=True)
-    code = ndb.StringProperty()
-    promo = ndb.FloatProperty(default=0.00)    #Promo code
+    code = ndb.KeyProperty()    #promo code
+    promo = ndb.FloatProperty(default=0.00)    #Promo amount
     updated = ndb.DateTimeProperty(auto_now=True)
 
     def item_count(self):

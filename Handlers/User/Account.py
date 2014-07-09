@@ -1,6 +1,7 @@
 from Handlers.BaseHandler import *
 from Models.User.Account import *
 from Utils.UserUtils import *
+from Models.Money.Promo import PromoCode
 from google.appengine.api import taskqueue
 import hashlib
 import logging
@@ -13,7 +14,10 @@ class AccountHandler(BaseHandler):
         if self.user_prefs: # if user is logged in, redirect to profile
             self.redirect("/")
         elif action=='signup':
-            self.render('signup.html')
+            promo = self.request.get('code')
+            if promo and PromoCode.valid_code(promo):
+                self.params['promo'] = promo
+            self.render('signup.html', **self.params)
         elif action=='signin':
             self.render('signin.html')
         elif action=='signout':
@@ -40,6 +44,7 @@ class AccountHandler(BaseHandler):
         # retrieve information
         password = data.get('password')
         email = data.get('email')
+        promo = data.get('promo')
         mm={'error':None}
         mm['next_url'] = '/m/profile'
         if not valid_email(email):
@@ -59,7 +64,12 @@ class AccountHandler(BaseHandler):
             u = UserAccounts(email = email, pwhash = make_pw_hash(email, password))
             u.put()
             # create related data structures
-            u.init()
+            if promo:
+                p = PromoCode.valid_code(promo)
+                logging.info(p)
+                u.init(p)
+            else:
+                u.init()
             # return mobile login cookies
             mm['status'] = 'new'
             logging.info(u.user_id())
