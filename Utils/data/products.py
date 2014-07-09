@@ -34,13 +34,6 @@ categories = [ {'name':'Indica',
                 'desc':'Let\'s rage',
                 'filename':'/static/img/icons/Sativa.png',
                 'listings': [
-                        {'name':'Lamb\'s Bread',
-                        'desc':'Rumored to be Bob Marley\'s fav strain, this produces a creative high that has been known to enhance positive introspection.',
-                        'filename':'/static/img/product-pics/flower-lambsbread.jpg',
-                        'price':50.00,
-                        'thc':21.3,
-                        'strain_type':'S',
-                        'cbd':.2},
 
                         {'name':'Platinum Jack',
                         'desc':'Expect a clear, energizing buzz that is perfect for getting work done and well suited to social situations.',
