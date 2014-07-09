@@ -46,10 +46,10 @@
 <script>
 jQuery(document).ready(function () {
   $('#splash_final').click(function(e) {
-     $(location).attr('href',"/account/signup");
+     $(location).attr('href',"/account/signup?code={{promo}}");
    });
   $('#splash_final').on("swipe", function(e) {
-     $(location).attr('href',"/account/signup");
+     $(location).attr('href',"/account/signup?code={{promo}}");
    });
 });
 </script>

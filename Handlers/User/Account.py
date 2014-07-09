@@ -66,7 +66,6 @@ class AccountHandler(BaseHandler):
             # create related data structures
             if promo:
                 p = PromoCode.valid_code(promo)
-                logging.info(p)
                 u.init(p)
             else:
                 u.init()

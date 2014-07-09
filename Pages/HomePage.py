@@ -15,7 +15,10 @@ class HomePage(BaseHandler):
                 else:
                     self.redirect('/m/photoid')
         else:
-            self.render('index.html')
+            promo = self.request.get('code')
+            if promo and PromoCode.valid_code(promo):
+                self.params['promo'] = promo
+            self.render('index.html', **self.params)
 
 class SplashPage(BaseHandler):
     """ Home page, first page shown """
