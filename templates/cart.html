@@ -101,23 +101,34 @@ $(document).ready(function() {
     var itemQty = qtyBox.find('.itemQty');
     var key = qtyBox.attr('data-key');
     var qty = parseInt(itemQty.html());
-    if (qty < 99)
-      itemQty.html(qty+1);
-    updateTotal();
-    updateCart('inc', key, qty);
+    if (qty < 99) {
+      qty=qty+1;
+      itemQty.html(qty);
+      updateTotal();
+      updateCart('inc', key, qty);
+    }
   });
   $('a.minusBtn').click(function(e) {
     var qtyBox = $(this).parent().parent().parent();
     var itemQty = qtyBox.find('.itemQty');
     var key = qtyBox.attr('data-key');
     var qty = parseInt(itemQty.html());
-    if (qty > 0)
-      itemQty.html(qty-1);
-    updateTotal();
-    updateCart('dec', key, qty);
+    console.log(qty);
+    if (qty > 0) {
+      qty=qty-1;
+      itemQty.html(qty);
+      updateTotal();
+      updateCart('dec', key, qty);
+    }
   });
   });
 $('#checkoutBtn').click(function() {
+  total = updateTotal();
+  if (!total) {
+    alert('Please add items to cart.');
+    return
+  }
+
   $(this).prop('disabled', true);
   //sync cart
   var cart = [];
@@ -157,6 +168,10 @@ function updateTotal() {
     else
         total = subTotal + {{shipping}};
     $('#total').html('$'+total.toFixed(2).toString());
+    if (total > 0)
+      return true;
+    else
+      return false;
 }
 function updateCart(action, item, qty) {
   var data = {'action':action, 'key':item, 'qty':qty};

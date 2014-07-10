@@ -45,25 +45,25 @@ class CartHandler(BaseHandler):
             self.write(json.dumps(mm))
             return
         key = ndb.Key(urlsafe=datakey)
-        # is it already there?
+        # is it already there? who cares
         i = cart.item_idx(key)
         if i>=0:
             ci = cart.cart_item[i]
         else:
             ci = None
             mm['status'] = 'Missing Item'
-        if action=='inc' or action=='dec' and ci:
-            ci.quantity = qty
+        if ci:
+            if qty < 1:
+                cart.cart_item.remove(ci)
+            else:
+                ci.quantity = qty
             mm['status'] = 'ok'
         elif action=='rem' and ci:
             ci.pop(i)
             mm['status'] = 'ok'
-        elif action=='add':
-            if ci:
-                ci.quantity = ci.quantity + 1
-            else:
-                c = CartItem(item=key, quantity=qty)
-                cart.cart_item.append(c)
+        else:
+            c = CartItem(item=key, quantity=qty)
+            cart.cart_item.append(c)
             mm['status'] = 'ok'
         self.params['cart_tot'] = cart.item_count()
         cart.put()

@@ -28,8 +28,9 @@ class Cart(ndb.Model):
         for c in self.cart_item:
             item = c.item.get()
             tot += item.price * c.quantity
-        tot -= self.promo
-        tot += default_shipping
+        if tot > 0:
+            tot -= self.promo
+            tot += default_shipping
         return tot
 
     def to_dict(self):
