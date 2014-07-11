@@ -8,5 +8,5 @@ domain = 'http://golemmiwink.appspot.com'
 default_shipping = 5.00
 
 # operating hours
-open_biz = datetime.time(hour=00)
-close_biz = datetime.time(hour=05)
+open_biz = datetime.time(hour=01)
+close_biz = datetime.time(hour=06)

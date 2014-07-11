@@ -97,15 +97,14 @@ class CartHandler(BaseHandler):
         logging.info(data)
         mm={'error':None}
         cart = Cart.by_key(self.user_prefs.key)
-        sync = Cart(code=cart.code, promo=cart.promo)
+        items = []
         for d in data:
             key = d.get('key')
             qty = d.get('qty')
             if key and qty:
                 item = CartItem(quantity=parse_unit(qty), item=ndb.Key(urlsafe=key))
-                sync.cart_item.append(item)
-        cart = sync
-        cart.put()
+                items.append(item)
+        cart.sync(items)
         mm['status'] = 'ok'
         if self.user_prefs.cust_id:
             mm['next_url'] = '/pay/checkout'

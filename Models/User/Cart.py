@@ -52,6 +52,14 @@ class Cart(ndb.Model):
         else:
             return -1
 
+    # receive list of cart items
+    def sync(self, sync_cart):
+        # for name, value in changed_values.items():
+        #     setattr(self, name, value)
+        self.cart_item = sync_cart
+        self.put()
+        return
+
     @classmethod
     def by_userid(cls, userid):
     	key = ndb.Key('UserAccounts', str(userid))
