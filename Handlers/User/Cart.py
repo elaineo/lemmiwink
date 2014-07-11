@@ -38,7 +38,7 @@ class CartHandler(BaseHandler):
         datakey = data.get('key')
         qty = parse_unit(data.get('qty'))
         action = data.get('action')
-        mm={'error':None}
+        mm={'error':None, 'status': 'ok'}
         cart = Cart.by_key(self.user_prefs.key)
         if not action or not cart or not datakey:
             mm['error'] = 'Bad request.'
@@ -52,19 +52,18 @@ class CartHandler(BaseHandler):
         else:
             ci = None
             mm['status'] = 'Missing Item'
-        if ci:
+        if ci and action=='inc' or action=='dec':
             if qty < 1:
                 cart.cart_item.remove(ci)
             else:
                 ci.quantity = qty
-            mm['status'] = 'ok'
         elif action=='rem' and ci:
             ci.pop(i)
-            mm['status'] = 'ok'
+        elif action=='add' and ci:
+            ci.quantity += 1
         else:
             c = CartItem(item=key, quantity=qty)
             cart.cart_item.append(c)
-            mm['status'] = 'ok'
         self.params['cart_tot'] = cart.item_count()
         cart.put()
         mm['cart_head'] = self.render_str('base/cart_head.html', **self.params)
