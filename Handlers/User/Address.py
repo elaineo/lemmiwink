@@ -44,12 +44,9 @@ class AddressHandler(BaseHandler):
         if update and u.addr_deliv:
             new_addr = u.addr_deliv.get()
         else:
-            new_addr = Address()
-        new_addr.street = address
-        new_addr.apt = apt
-        new_addr.city = city
-        new_addr.state = state
-        new_addr.zipcode = zipcode
+            new_addr = Address(parent = u.key)
+        new_addr.populate(street=address, apt = apt, city = city,
+            state = state,  zipcode = zipcode)
         if lat and lon:
             locpt = ndb.GeoPt(lat=lat, lon=lon)
             new_addr.locpt = locpt

@@ -17,7 +17,7 @@ from Handlers.User.Payment import PaymentHandler
 from Handlers.Delivery import DeliveryHandler
 
 #Admin
-from Utils.Admin import AdminHandler
+from Utils.Admin.Admin import AdminHandler
 from Utils.Populate import PopulateHandler
 from Handlers.Money.Promo import PromoPage
 
